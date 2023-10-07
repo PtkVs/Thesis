@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PolicySet xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+           PolicySetId="permit-all" Version="0.1.0"
+           PolicyCombiningAlgId="urn:oasis:names:tc:xacml:3.0:policy-combining-algorithm:deny-unless-permit">
+    <Target/>
+
+    <Policy
+            Version="1.0"
+            PolicyId="SimpleDenyPolicy"
+            RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:permit-overrides">
+
+        <Target/>
+
+        <Rule
+                Effect="Permit"
+                RuleId="PermitTest">
+        </Rule>
+    </Policy>
+</PolicySet>
