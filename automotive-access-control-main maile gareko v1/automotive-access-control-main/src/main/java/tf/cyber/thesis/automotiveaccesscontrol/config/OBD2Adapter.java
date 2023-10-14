@@ -19,7 +19,7 @@ import tf.cyber.obdii.commands.connection.ResetELM;
 import tf.cyber.obdii.io.OBD2Connection;
 
 @Configuration
-public class OBD2Adapter {
+public class  OBD2Adapter {
     @Autowired
     private Environment env;
 

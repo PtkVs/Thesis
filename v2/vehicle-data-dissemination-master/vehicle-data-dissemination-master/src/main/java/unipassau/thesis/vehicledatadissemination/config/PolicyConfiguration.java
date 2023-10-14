@@ -17,7 +17,7 @@ public class PolicyConfiguration {
     private final Logger logger = LoggerFactory.getLogger(PolicyConfiguration.class);
 
     // Set the location of the stored policies
-    private final String POLICY_STORE_PATH = "policies";
+    private final String POLICY_STORE_PATH = "c://policies";
 
     // Loading policies into a HashMap that maps policies to their hash value
     @Bean

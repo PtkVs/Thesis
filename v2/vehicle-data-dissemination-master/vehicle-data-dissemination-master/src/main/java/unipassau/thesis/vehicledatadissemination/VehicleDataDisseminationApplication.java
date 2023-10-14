@@ -44,7 +44,10 @@ public class VehicleDataDisseminationApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		File temporaryFolder= new File(tmpFolder);
+		temporaryFolder.mkdir();
 		FileUtils.cleanDirectory(temporaryFolder);
+		System.out.println("HhhhhhhhhhheeeeEEELLllllllllllllllllllllllllloooLOOOOOOOOOOOOOO");
+		// temporaryFolder.mkdir(); unable to create tmp folder
 		ProxyReEncryptionModel pre = new ProxyReEncryptionModel(schemeName, plainTextModulus, ringSize, securityLevel);
 
 

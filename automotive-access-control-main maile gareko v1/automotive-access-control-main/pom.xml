@@ -39,6 +39,7 @@
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 
+
 		<!-- https://mvnrepository.com/artifact/org.scream3r/jssc -->
 		<dependency>
 			<groupId>org.scream3r</groupId>
