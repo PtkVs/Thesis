@@ -7,7 +7,7 @@ import com.sun.jna.Platform;
 
 public interface OpenPRE extends Library {
     OpenPRE INSTANCE = (OpenPRE)
-            Native.load((Platform.isLinux() ? "crypto" : "c"),
+            Native.load((Platform.isWindows() ? "libcrypto" : "c"  ),
                     OpenPRE.class);
     void cryptoContextGen(String schemeName, String cryptoFolder, String filename, int plaintextModulus);
     void keysGen(String cryptoContext, String destinationPath);
