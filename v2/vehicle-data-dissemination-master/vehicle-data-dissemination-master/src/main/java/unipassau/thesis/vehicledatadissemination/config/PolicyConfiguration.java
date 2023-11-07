@@ -17,7 +17,7 @@ public class PolicyConfiguration {
     private final Logger logger = LoggerFactory.getLogger(PolicyConfiguration.class);
 
     // Set the location of the stored policies
-    private final String POLICY_STORE_PATH = "/home/Documents/GitHub/Thesis/v2/vehicle-data-dessemination-master/vehicle-data-dessemination-master/policies";
+    private final String POLICY_STORE_PATH = "/home/sick/Documents/GitHub/Thesis/v2/vehicle-data-dissemination-master/vehicle-data-dissemination-master/policies";
 
     // Loading policies into a HashMap that maps policies to their hash value
     @Bean
