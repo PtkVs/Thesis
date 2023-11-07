@@ -7,7 +7,7 @@ import com.sun.jna.Platform;
 public interface OpenPRE extends Library {
     // Load the C++ OpenPRE library from the system
     OpenPRE INSTANCE = (OpenPRE)
-            Native.load((Platform.isWindows() ? "crypto" : "c"  ),
+            Native.load((Platform.isWindows() ? "xxxx" : "c"  ),
                     OpenPRE.class);
     // Generate the crypto context for our PRE scheme
     void cryptoContextGen(String schemeName,
