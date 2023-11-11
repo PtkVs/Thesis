@@ -31,7 +31,7 @@ public class VehicleDataDisseminationApplication implements CommandLineRunner {
 	private int ringSize;
 	@Value("${pre.securityLevel}")
 	private ProxyReEncryptionModel.SecurityLevel securityLevel;
-	@Value("${app.tmpFolder}")
+	@Value("${user.dir}/tmp/")
 	private String tmpFolder;
 	@Value("${app.reEncKeysFolder}")
 	private String reEncKeysFolder;
