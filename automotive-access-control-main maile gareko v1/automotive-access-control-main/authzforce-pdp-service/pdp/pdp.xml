@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pdp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://authzforce.github.io/core/xmlns/pdp/8" version="8.0" maxIntegerValue="2147483648">
-    <attributeDatatype>urn:ogc:def:dataType:geoxacml:1.0:geometry</attributeDatatype>
+    <!--<attributeDatatype>urn:ogc:def:dataType:geoxacml:1.0:geometry</attributeDatatype>
     <attributeDatatype>urn:oasis:names:tc:xacml:3.0:data‑type:dayOfWeek</attributeDatatype>
 
     <function>urn:ogc:def:function:geoxacml:1.0:geometry-equals</function>
@@ -34,7 +34,7 @@
             xmlns:pf="http://cyber.tf/xacml/pollingfrequency"
             xsi:type="pf:PollingFrequencyProviderDescriptor"
             xmlns:xacml="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-            logUrl="http://localhost:9999/log/query" />
+            logUrl="http://localhost:9999/log/query" /> -->
 
     <policyProvider id="policyProvider" xsi:type="StaticPolicyProvider">
         <policyLocation>policies/permit-all.xml</policyLocation>

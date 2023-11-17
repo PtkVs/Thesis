@@ -8,8 +8,8 @@
         in the PDP extensions schema (pdp-ext.xsd), do not specify any schemaLocation in this schema, only the namespace.
         -->
 
-    <uri name="http://cyber.tf/xacml/location/gpslocation"
+    <!--<uri name="http://cyber.tf/xacml/location/gpslocation"
          uri="classpath:tf.cyber.xacml.location.gpslocation.xsd" />
     <uri name="http://cyber.tf/xacml/pollingfrequency"
-         uri="classpath:tf.cyber.xacml.pollingfrequency.xsd" />
+         uri="classpath:tf.cyber.xacml.pollingfrequency.xsd" />  -->
 </catalog>

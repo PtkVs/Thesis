@@ -54,7 +54,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
+<!--		 <dependency>
 			<groupId>tf.cyber.xacml</groupId>
 			<artifactId>authzforce-geolocation-provider</artifactId>
 			<version>1.0-SNAPSHOT</version>
@@ -74,7 +74,7 @@
 			<groupId>de.securedimensions.geoxacml</groupId>
 			<artifactId>authzforce-geoxacml-basic</artifactId>
 			<version>0.4.1</version>
-		</dependency>
+		</dependency>  -->
 
 		<dependency>
 			<groupId>com.squareup.okhttp3</groupId>
