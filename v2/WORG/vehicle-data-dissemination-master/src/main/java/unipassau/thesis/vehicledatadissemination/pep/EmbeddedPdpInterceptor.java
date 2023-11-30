@@ -34,6 +34,8 @@ public class EmbeddedPdpInterceptor {
 
         // Evaluate the request
         final DecisionResult result = pdp.evaluate(request);
+        System.out.println("myresult");
+        System.out.println(result);
 
         if (result == null)
         {
