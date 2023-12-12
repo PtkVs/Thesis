@@ -68,3 +68,25 @@ public class Encoder {
 
 
 }
+
+/*
+1.xmlToHash Method:
+-Takes a file path (filePath) as a parameter.
+-Reads the content of the file specified by the file path.
+-Computes the hash (using SHA3-256) of the file content.
+-Returns the computed hash.
+
+2.bytesToHex Method:
+-Takes a byte array (hash) as a parameter.
+-Converts the byte array to a hexadecimal string representation.
+
+3.Hexadecimal Conversion Utility Methods:
+ -toDigit: Converts a hexadecimal character to its decimal value.
+ -hexToByte: Converts a two-character hexadecimal string to a byte.
+ -decodeHexString: Converts a hexadecimal string to a byte array.
+
+**Summary**
+The Encoder class provides methods for encoding and decoding data. It includes functionality for hashing file content, converting byte
+arrays to hexadecimal strings, and converting hexadecimal strings back to byte arrays. These encoding and decoding operations are commonly
+ used in cryptographic and data manipulation tasks.
+ */

@@ -73,3 +73,33 @@ public class VehicleDataDisseminationApplication implements CommandLineRunner {
 	}
 
 }
+
+/*
+1.@SpringBootApplication:
+-Annotation indicating that this class is the main application class of a Spring Boot application.
+
+2.CommandLineRunner Implementation:
+-The run method is executed after the Spring application context is initialized. It contains the core logic of the application.
+
+3.Temporary Folder Setup:
+-Creates a temporary folder and cleans its contents using FileUtils.cleanDirectory.
+
+4.ProxyReEncryptionModel Instantiation:
+-Creates an instance of the ProxyReEncryptionModel with configuration properties.
+
+5.Crypto Context Generation:
+-Invokes OpenPRE.INSTANCE.cryptoContextGen to generate the crypto context for the Proxy Re-Encryption (PRE) scheme.
+
+6.Key Pair Generation:
+-Invokes OpenPRE.INSTANCE.keysGen to generate key pairs for Alice, Bob, and Carlos.
+
+7.Re-Encryption Key Generation:
+-Invokes OpenPRE.INSTANCE.reKeyGen to generate re-encryption keys from Alice to Bob and from Alice to Carlos.
+
+**Summary:
+The VehicleDataDisseminationApplication class is the main entry point of the Vehicle Data Dissemination application. This class is
+annotated with @SpringBootApplication, indicating that it is a Spring Boot application. Additionally, it implements CommandLineRunner,
+which means that the run method will be executed after the Spring application context is initialized.
+The VehicleDataDisseminationApplication class is responsible for initializing the Spring Boot application, setting up necessary
+ configurations, and generating cryptographic components (crypto context, key pairs, and re-encryption keys) using the OpenPRE library.
+ */

@@ -96,3 +96,30 @@ public class PolicyEnforcementService {
     }
 
 }
+
+
+/*
+1.Constructor and Autowired Fields:
+-The class is annotated with @Service, indicating that it's a Spring service component.
+-It has fields annotated with @Autowired, such as policyMap and env, indicating dependency injection.
+
+2.authorize Method:
+-This method takes a Principal (user), a request URI, and an action as parameters and performs an authorization check.
+-It uses an embedded PDP engine to evaluate the XACML request created by the EmbeddedPdpInterceptor.
+-The method returns true if the decision is PERMIT, indicating that the user is authorized.
+
+3.setPolicy Method:
+-This method is a helper method used to update the PDP configuration file with a specific policy.
+
+4.setPdpConfigFile Method:
+-This method is responsible for updating the PDP configuration file based on the hash of a policy.
+-It checks if the current PDP configuration already includes the specified policy. If not, it updates the configuration.
+
+5.Logging:
+-The class uses SLF4J for logging, and it logs information about updating the PDP configuration file and the XACML authorization decision.
+
+**Summary:
+The PolicyEnforcementService class is a Spring service responsible for enforcing access control policies using an embedded PDP engine.
+It can authorize users based on XACML policies, and it includes functionality to update the PDP configuration file dynamically based on
+policy changes.
+ */

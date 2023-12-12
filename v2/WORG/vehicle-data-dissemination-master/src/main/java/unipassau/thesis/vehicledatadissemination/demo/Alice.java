@@ -72,3 +72,37 @@ public class Alice {
 
     }
 }
+
+/*
+1.Dependencies:
+-The class relies on external libraries, including OkHttp, Apache Commons Lang, and custom utility classes (DataHandler, OpenPRE, Encoder).
+
+2.Static Fields:
+-Various static fields define file paths (cryptoFolder, dataFolder, pubKey, policyFolder) and the GPS data source URL (gpsUrl).
+
+3.Logger:
+-The class uses SLF4J for logging, with a static logger (LOG).
+
+4.Scheduled Execution:
+-The class uses a ScheduledExecutorService to periodically execute a task defined by the Runnable interface.
+
+5.Data Retrieval:
+-The Runnable task sends a GET request to the specified GPS data source URL (gpsUrl) using OkHttp.
+-The received JSON response is stored in the res field.
+
+6.Encryption:
+-The data from the GPS response is encrypted using the OpenPRE.INSTANCE.encrypt method and stored in the dataFolder with an incremental
+ filename.
+
+7.Policy Hashing:
+-The hash of the policy specified in the command-line arguments (args[1]) is appended to the encrypted data using DataHandler.writer.
+
+8.Termination:
+-The process repeats until the specified number of iterations (Integer.parseInt(args[0])) is reached, at which point the
+ ScheduledExecutorService is shut down.
+
+**Summary**
+The Alice class simulates a data source that periodically retrieves GPS data, encrypts it, appends the hash of a specified policy,
+and saves the result to a data folder. The process is scheduled to repeat at fixed intervals. The class appears to be part of a larger
+system for experimenting with or demonstrating vehicle data dissemination with encryption and policy enforcement.
+*/

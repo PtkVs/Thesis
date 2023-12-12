@@ -85,3 +85,37 @@ public class Bob {
 
     }
 }
+
+/*
+1.Dependencies:
+-The class relies on external libraries, including OkHttp and custom utility classes (OpenPRE).
+
+2.Static Fields:
+-Various static fields define file paths (cryptoFolder, dataFolder, privateKey, tmpFolder) and the server URL (serverUrl).
+
+3.Logger:
+-The class uses SLF4J for logging, with a static logger (LOG).
+
+4.Client Authentication:
+-The class defines a method (createAuthenticatedClient) to create an OkHttp client with basic authentication credentials for accessing
+ the server.
+
+5.Scheduled Execution:
+-The class uses a ScheduledExecutorService to periodically execute a task defined by the Runnable interface.
+
+6.Data Retrieval and Re-Encryption:
+-The Runnable task reads a sticky document from the data folder (dataFolder) and sends a POST request to the server (serverUrl) for re-encryption.
+-The re-encrypted data is received and saved to a temporary folder (tmpFolder), and the original content is decrypted using the private key.
+
+7.Logging and Output:
+-The decrypted data is converted to a JSON object and logged.
+
+8.Termination:
+-The process repeats until the specified number of iterations (Integer.parseInt(args[0])) is reached, at which point the ScheduledExecutorService is shut down.
+
+**Summary**
+The Bob class simulates a data consumer that periodically retrieves sticky documents, sends them to a server for re-encryption,
+receives the re-encrypted data, decrypts it using a private key, and logs the results. The process is scheduled to repeat at fixed
+intervals. The class appears to be part of a larger system for experimenting with or demonstrating vehicle data dissemination with
+encryption and policy enforcement.
+*/

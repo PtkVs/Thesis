@@ -78,3 +78,34 @@ public class EmbeddedPdpInterceptor {
 
 
 }
+
+/*
+1.Constructor:
+-The class has a constructor that takes an instance of BasePdpEngine as a parameter. This engine is likely responsible for making policy
+ decisions based on XACML (eXtensible Access Control Markup Language) policies.
+
+2.authorize Method:
+-This method takes a Principal (user), a resource ID, and an action ID as parameters and performs an authorization check.
+-It creates a DecisionRequest using the createRequest method and evaluates it using the pdp.evaluate method.
+-The result of the evaluation is logged, and the method returns true if the decision is PERMIT, indicating that the user is authorized.
+
+3.createRequest Method:
+-This method creates a DecisionRequest by adding attributes related to the subject (user), resource, and action to a
+ DecisionRequestBuilder.
+
+4.Attributes:
+-The class uses the following attributes:
+        -pdp: An instance of BasePdpEngine, which is likely responsible for making policy decisions based on XACML policies.
+        -LOG: An instance of Logger, which is used for logging.
+
+-Subject ID, resource ID, and action ID are added as attributes to the XACML request.
+
+5.Logging:
+-The class uses SLF4J for logging, and it logs information about the XACML request, authorization response, and decision.
+
+**Summary**:
+The EmbeddedPdpInterceptor class acts as a bridge between the application and the embedded PDP engine. It creates XACML requests based
+on user, resource, and action attributes, evaluates these requests using the PDP engine, and logs the authorization results. The authorize
+method returns true if the decision is PERMIT, indicating that the user is authorized to perform the specified action on the
+specified resource.
+*/
