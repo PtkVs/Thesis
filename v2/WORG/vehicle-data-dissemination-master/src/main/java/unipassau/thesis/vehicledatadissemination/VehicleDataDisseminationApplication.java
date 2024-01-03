@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import unipassau.thesis.vehicledatadissemination.model.ProxyReEncryptionModel;
 import unipassau.thesis.vehicledatadissemination.util.OpenPRE;
 
@@ -14,6 +17,9 @@ import java.io.File;
 
 
 @SpringBootApplication
+
+
+
 public class VehicleDataDisseminationApplication implements CommandLineRunner {
 
 	private static Logger LOG = LoggerFactory
