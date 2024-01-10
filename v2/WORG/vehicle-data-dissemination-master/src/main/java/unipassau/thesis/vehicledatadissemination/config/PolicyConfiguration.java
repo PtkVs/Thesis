@@ -13,8 +13,6 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 @Configuration
-
-
 public class PolicyConfiguration {
 
     private final Logger logger = LoggerFactory.getLogger(PolicyConfiguration.class);
@@ -22,26 +20,41 @@ public class PolicyConfiguration {
     // Set the location of the stored policies
     private final String POLICY_STORE_PATH = "/home/sick/Documents/GitHub/Thesis/v2/WORG/vehicle-data-dissemination-master/policies";
 
+    private final PolicyMappingServiceDB policyMappingService;
+
+    @Autowired
+    public PolicyConfiguration(PolicyMappingServiceDB policyMappingService) {
+        this.policyMappingService = policyMappingService;
+    }
+
     // Loading policies into a HashMap that maps policies to their hash value
     @Bean
     public HashMap<String, String> policyMap() throws FileNotFoundException {
         logger.info("Loading policies configuration.");
-        HashMap<String, String> policyMap = new HashMap<>() ;
+        HashMap<String, String> policyMap = new HashMap<>();
         File directoryPath = new File(POLICY_STORE_PATH);
         File filesList[] = directoryPath.listFiles();
+
         // Load hash value of each policy into a HashMap
-        for(File file : filesList) {
-            logger.info("Loading policy : "+ file.getName() );
-            policyMap.put(Encoder.bytesToHex(Encoder.xmlToHash(file.getAbsolutePath()))
-                    , file.getName());
+        for (File file : filesList) {
+            logger.info("Loading policy: " + file.getName());
+            String hashValue = Encoder.bytesToHex(Encoder.xmlToHash(file.getAbsolutePath()));
+            String policyName = file.getName();
+
+            // Store policy in the database using the service
+            policyMappingService.saveMappings(hashValue, policyName);
+
+            policyMap.put(hashValue, policyName);
         }
+
         logger.info(policyMap.toString());
         logger.info("Loaded policies configuration.");
 
+        // Print all mappings in the database
+        policyMappingService.printAllMappings();
+
         return policyMap;
     }
-
-
 }
 
 /*

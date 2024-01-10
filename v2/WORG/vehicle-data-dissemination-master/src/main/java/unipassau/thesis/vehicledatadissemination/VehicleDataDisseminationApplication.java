@@ -18,8 +18,6 @@ import java.io.File;
 
 @SpringBootApplication
 
-
-
 public class VehicleDataDisseminationApplication implements CommandLineRunner {
 
 	private static Logger LOG = LoggerFactory
