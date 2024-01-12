@@ -1,5 +1,65 @@
 package unipassau.thesis.vehicledatadissemination.demo;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import unipassau.thesis.vehicledatadissemination.util.DataHandler;
+import unipassau.thesis.vehicledatadissemination.util.OpenPRE;
+
+import java.io.IOException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class Alice {
+
+    private static Logger LOG = LoggerFactory.getLogger(Alice.class);
+
+    public static String cryptoFolder = System.getProperty("user.dir") + "/crypto/";
+    public static String dataFolder = System.getProperty("user.dir") + "/data/";
+    public static String pubKey = cryptoFolder + "alice-public-key";
+    public static String policyFolder = System.getProperty("user.dir") + "/policies/";
+
+    public static void main(String[] args) {
+        OkHttpClient httpClient = new OkHttpClient();
+        ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
+        AtomicInteger count = new AtomicInteger(0);
+
+        exec.scheduleAtFixedRate(() -> {
+            // Dummy speed data for testing
+            double speed = 75.5; // Replace with your desired speed value
+
+            // Include speed data in encryption
+            JSONObject dataToEncrypt = new JSONObject();
+            dataToEncrypt.put("speed", speed);
+
+            LOG.info("Encrypting Data ...");
+
+            // Modify encryption to include speed data
+            OpenPRE.INSTANCE.encrypt(pubKey, dataToEncrypt.toString(), dataFolder + count.get());
+
+            LOG.info("Sticking hash of the policy to the data ...");
+
+            // Assuming the policy hash is relevant to the speed data
+            DataHandler.writer(policyFolder + args[1], dataFolder + count.get());
+
+            if (count.incrementAndGet() >= Integer.parseInt(args[0])) {
+                exec.shutdown();
+            }
+        }, 0, 1, TimeUnit.SECONDS);
+    }
+}
+
+
+
+/* Speed with GET request from postman
+package unipassau.thesis.vehicledatadissemination.demo;
+
+
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -23,11 +83,72 @@ public class Alice {
     private static Logger LOG = LoggerFactory
             .getLogger(Alice.class);
 
-    public static String cryptoFolder = System.getProperty("user.dir")+"/crypto/";
-    public static String dataFolder = System.getProperty("user.dir")+"/data/";
+    public static String cryptoFolder = System.getProperty("user.dir") + "/crypto/";
+    public static String dataFolder = System.getProperty("user.dir") + "/data/";
     public static String pubKey = cryptoFolder + "alice-public-key";
-    public static String policyFolder = System.getProperty("user.dir")+"/policies/";
+    public static String policyFolder = System.getProperty("user.dir") + "/policies/";
 
+    public static String speedUrl = "http://localhost:8082/speed";
+
+    public static int count = 0;
+    public static JSONObject res = new JSONObject();
+    public static String randomPlaintext;
+
+    public static void main(String[] args) {
+
+        OkHttpClient httpClient = new OkHttpClient();
+        ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
+        exec.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+
+                // Retrieve speed data from the body of a GET request
+                Request speedRequest = new Request.Builder()
+                        .url(speedUrl)
+                        .get()
+                        .build();
+
+                double speed = 0.0; // Default speed if not available
+                try (Response response = httpClient.newCall(speedRequest).execute()) {
+                    // Parse speed data from the JSON response body
+                    String responseBody = response.body().string();
+                    JSONObject speedJson = new JSONObject(responseBody);
+                    // Assuming the speed data is stored under the key "speed"
+                    if (speedJson.has("speed")) {
+                        speed = speedJson.getDouble("speed");
+                    }
+
+                } catch (IOException | org.json.JSONException e) {
+                    // Handle the case where speed data is not available or not in the expected format
+                    e.printStackTrace();
+                }
+
+                // Include speed data in encryption
+                JSONObject dataToEncrypt = new JSONObject();
+                dataToEncrypt.put("speed", speed);
+
+                LOG.info("Encrypting Data ...");
+
+                // Modify encryption to include speed data
+                OpenPRE.INSTANCE.encrypt(pubKey, dataToEncrypt.toString(), dataFolder + count);
+
+                LOG.info("Sticking hash of the policy to the data ...");
+
+                // Assuming the policy hash is relevant to the speed data
+                DataHandler.writer(policyFolder + args[1], dataFolder + count);
+
+                if (++count >= Integer.parseInt(args[0])) {
+                    exec.shutdown();
+                }
+            }
+        }, 0, 1, TimeUnit.SECONDS);
+    }
+
+ */
+
+
+
+    /* Location is disabled for now.
     public static String gpsUrl = "http://localhost:8081/";
 
     public static int count=0;
@@ -70,8 +191,8 @@ public class Alice {
             }
         }, 0, 1, TimeUnit.SECONDS);
 
-    }
-}
+    } */
+
 
 /*
 1.Dependencies:
