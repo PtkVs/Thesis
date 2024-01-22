@@ -31,7 +31,7 @@ public class Alice {
 
         exec.scheduleAtFixedRate(() -> {
             // Dummy speed data for testing
-            double speed = 75.5; // Replace with your desired speed value
+            double speed = 100.5;
 
             // Include speed data in encryption
             JSONObject dataToEncrypt = new JSONObject();
