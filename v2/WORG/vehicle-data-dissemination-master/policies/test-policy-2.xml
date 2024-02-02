@@ -34,34 +34,6 @@
                     />
                 </Match>
             </AllOf>
-            <AllOf>
-                <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">bob</AttributeValue>
-                    <AttributeDesignator
-                            Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
-                            AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id"
-                            MustBePresent="true"
-                            DataType="http://www.w3.org/2001/XMLSchema#string"/>
-                </Match>
-
-                <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">/benchmark/authorize</AttributeValue>
-                    <AttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#string"
-                                         AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id"
-                                         Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"
-                                         MustBePresent="true"
-                    />
-                </Match>
-
-                <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">POST</AttributeValue>
-                    <AttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#string"
-                                         AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"
-                                         Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action"
-                                         MustBePresent="true"
-                    />
-                </Match>
-            </AllOf>
         </AnyOf>
     </Target>
 
@@ -70,3 +42,4 @@
             RuleId="AllowReEncryption">
     </Rule>
 </Policy>
+

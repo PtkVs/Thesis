@@ -61,8 +61,9 @@ public class Alice {
                 LOG.info("Encrypting Data ...");
                 OpenPRE.INSTANCE.encrypt(pubKey, res.toString(), dataFolder + count);
 
+                //DataHandler.writer(policyFolder + args[0], dataFolder + count); org code change to policyFolder + count + ".xml"
                 LOG.info("Sticking hash of the policy to the data ...");
-                DataHandler.writer(policyFolder + args[0], dataFolder + count);
+                DataHandler.writer(policyFolder + count + ".xml", dataFolder + count);
 
                 if (++count >= Integer.parseInt(args[0])) {
                     exec.shutdown();

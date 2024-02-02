@@ -46,7 +46,7 @@ public class DataAccessController {
                 .getRequestAttributes())
                 .getRequest();
 
-        Principal principal = request.getUserPrincipal();
+        Principal principal = request.getUserPrincipal(); //yeha yo principal empty xaaa note
 
         // Retrieve the policy to enforce from the hash and set the pdp config file
         policyEnforcementService.setPdpConfigFile(stickyDocumentMap.get("hash"));
@@ -68,6 +68,7 @@ public class DataAccessController {
 
     }
 }
+
 
 /*
 1.Annotations:
