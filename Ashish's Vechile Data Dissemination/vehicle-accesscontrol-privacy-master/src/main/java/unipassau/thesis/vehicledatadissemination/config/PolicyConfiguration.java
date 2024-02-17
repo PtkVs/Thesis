@@ -2,6 +2,7 @@ package unipassau.thesis.vehicledatadissemination.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import unipassau.thesis.vehicledatadissemination.util.Encoder;
@@ -19,6 +20,13 @@ public class PolicyConfiguration {
     // Set the location of the stored policies
     private final String POLICY_STORE_PATH = "policies";
 
+    private final DatabaseConfiguration policyMapping;
+
+    @Autowired
+    public PolicyConfiguration(DatabaseConfiguration policyMapping) {
+        this.policyMapping = policyMapping;
+    }
+
     // Loading policies into a HashMap that maps policies to their hash value
     @Bean
     public HashMap<String, String> policyMap() throws FileNotFoundException {
@@ -29,11 +37,22 @@ public class PolicyConfiguration {
         // Load hash value of each policy into a HashMap
         for(File file : filesList) {
             logger.info("Loading policy : "+ file.getName() );
-            policyMap.put(Encoder.bytesToHex(Encoder.xmlToHash(file.getAbsolutePath()))
-                    , file.getName());
+
+           //Note this is different to original code
+            String hashValue = Encoder.bytesToHex(Encoder.xmlToHash(file.getAbsolutePath()));
+            String policyName = file.getName();
+            
+            //Store policy in the database using the service
+            policyMapping.saveMappings(hashValue, policyName);
+
+            policyMap.put(hashValue, policyName);
         }
         logger.info(policyMap.toString());
         logger.info("Loaded policies configuration.");
+
+
+        // Print all mappings which was saved in the db just checking ko lagi matra yeha PolicyConfiguratin ma rakheko nothing else
+        policyMapping.printAllMappings();
 
         return policyMap;
     }

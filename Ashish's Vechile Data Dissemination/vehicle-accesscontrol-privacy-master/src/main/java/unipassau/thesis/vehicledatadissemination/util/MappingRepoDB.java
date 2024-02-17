@@ -10,4 +10,3 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface MappingRepoDB extends JpaRepository<MappingPolicyDB, Long> {
 }
 
-

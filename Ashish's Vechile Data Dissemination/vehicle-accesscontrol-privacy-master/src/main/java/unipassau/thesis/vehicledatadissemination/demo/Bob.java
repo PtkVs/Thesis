@@ -26,7 +26,7 @@ public class Bob {
     public static String serverUrl = "http://localhost:8080/";
 
 
-    public static int count=0;
+    public static int count=7;
 
     public static byte[] data = null;
     public static String res = "";

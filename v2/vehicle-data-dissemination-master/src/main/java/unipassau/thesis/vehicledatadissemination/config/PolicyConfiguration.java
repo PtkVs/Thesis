@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import unipassau.thesis.vehicledatadissemination.util.Encoder;
 
 import java.io.File;
@@ -18,12 +17,12 @@ public class PolicyConfiguration {
     private final Logger logger = LoggerFactory.getLogger(PolicyConfiguration.class);
 
     // Set the location of the stored policies
-    private final String POLICY_STORE_PATH = "/home/sick/Documents/GitHub/Thesis/v2/WORG/vehicle-data-dissemination-master/policies";
+    private final String POLICY_STORE_PATH = "policies";
 
-    private final PolicyMappingServiceDB policyMappingService;
+    private final DatabaseConfiguration policyMappingService;
 
     @Autowired
-    public PolicyConfiguration(PolicyMappingServiceDB policyMappingService) {
+    public PolicyConfiguration(DatabaseConfiguration policyMappingService) {
         this.policyMappingService = policyMappingService;
     }
 
