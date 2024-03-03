@@ -69,7 +69,7 @@ public class Alice {
                 LOG.info("Sticking hash of the policy to the data ...");
                 //DataHandler.writer(policyFolder + args[1], dataFolder + count);
                 //Change below- replaced args[1] with count + .xml to be able to fetch the policy file
-                DataHandler.writer(policyFolder + count + ".xml", dataFolder + count);
+                DataHandler.writer(policyFolder + count + ".xml", dataFolder + count, count);
 
                 if (++count>= Integer.parseInt(args[0]) ) {
                     exec.shutdown();
