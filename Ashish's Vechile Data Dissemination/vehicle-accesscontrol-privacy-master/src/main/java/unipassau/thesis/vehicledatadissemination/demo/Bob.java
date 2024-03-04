@@ -25,6 +25,8 @@ public class Bob {
 
     public static String serverUrl = "http://localhost:8080/";
 
+    private static String hashFolder = System.getProperty("user.dir")+"/hsh/";
+
 
     public static int count=7;
 
@@ -55,7 +57,8 @@ public class Bob {
 
                 byte[] stickyDocument = null;
                 try {
-                    FileInputStream read = new FileInputStream(new File(dataFolder + count));
+                   // FileInputStream read = new FileInputStream(new File(dataFolder + count ));
+                  FileInputStream read = new FileInputStream(new File(hashFolder + count + ".bin")); //  i am getting permit but reencryption ma error cz data dataaccesscontroller class ma data reencryption garna pathauda data nai xaina
                     stickyDocument = read.readAllBytes();
                 } catch (IOException e) {
                     e.printStackTrace();

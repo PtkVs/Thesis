@@ -46,7 +46,7 @@ public class BenchmarkController {
         // Read the binary file contained in the body of the request
         byte[] stickyDocument = dataStream.readAllBytes();
         // Seperate the hash value and the ciphertext from the input file
-        Map<String, byte[]> stickyDocumentMap =  DataHandler.read(stickyDocument);
+        Map<String, byte[]> stickyDocumentMap =  DataHandler.readOnlyHash(stickyDocument);
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
                 .getRequestAttributes())
                 .getRequest();
