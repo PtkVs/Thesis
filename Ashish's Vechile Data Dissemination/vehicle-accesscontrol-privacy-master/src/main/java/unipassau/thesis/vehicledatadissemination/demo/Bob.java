@@ -58,7 +58,7 @@ public class Bob {
                 byte[] stickyDocument = null;
                 try {
                    // FileInputStream read = new FileInputStream(new File(dataFolder + count ));
-                  FileInputStream read = new FileInputStream(new File(hashFolder + count + ".bin")); //  i am getting permit but reencryption ma error cz data dataaccesscontroller class ma data reencryption garna pathauda data nai xaina
+                  FileInputStream read = new FileInputStream(new File(hashFolder + count + ".bin"));  //reading just hash
                     stickyDocument = read.readAllBytes();
                 } catch (IOException e) {
                     e.printStackTrace();

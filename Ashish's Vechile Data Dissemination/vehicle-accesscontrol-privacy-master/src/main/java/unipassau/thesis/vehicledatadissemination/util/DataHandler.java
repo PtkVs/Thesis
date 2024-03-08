@@ -43,7 +43,7 @@ public class DataHandler {
     }
 
     private static void saveHashToFile(String hashF, byte[] hashV) {
-        try (FileOutputStream fos = new FileOutputStream(hashF)) {
+        try (FileOutputStream fos = new FileOutputStream(hashF)) {  //yo constructor ma jaba hashF ko value pass hunxa file create hune kam hunxa
             fos.write(hashV);
             //fos.write((Encoder.bytesToHex(hashV)).getBytes());  readable UTF-8 character format ma dinthyo
             System.out.println("Hash Saved in the following path as" + hashF);

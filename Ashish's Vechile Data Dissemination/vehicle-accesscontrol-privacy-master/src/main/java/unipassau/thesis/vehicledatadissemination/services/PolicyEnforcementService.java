@@ -75,7 +75,7 @@ public class PolicyEnforcementService {
         try {
             String policy = policyMap.get(Encoder.bytesToHex(hash));
 
-            File inputFile = new File(env.getProperty("pdp.config.path"));
+            File inputFile = new File(env.getProperty("pdp.config.path")); //path of pdp engine
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             dbFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
             dbFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
@@ -88,7 +88,7 @@ public class PolicyEnforcementService {
             boolean checkForPolicy = (policyLocationNode.getTextContent().equals("policies/"+policy));
             if (!checkForPolicy){
                 LOG.info("Updating PDP config file with policy : " + policy);
-                setPolicy(inputFile, policy);
+                setPolicy(inputFile, policy); // path of pdp engine with policy ko value in string
             }
         } catch (Exception e) {
             e.printStackTrace();
