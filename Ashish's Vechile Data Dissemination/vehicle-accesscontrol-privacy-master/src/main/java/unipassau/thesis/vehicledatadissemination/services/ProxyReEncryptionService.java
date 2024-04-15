@@ -15,7 +15,7 @@ public class ProxyReEncryptionService {
     public byte[] reEncrypt(byte[] data, Principal principal){
         OkHttpClient httpClient = new OkHttpClient();
         Request locationRequest = new Request.Builder()
-                .url(env.getProperty("pre.location") + "re-encrypt")
+                .url(env.getProperty("pre.location") + "re-encrypt")  //calling pre server
                 .post(RequestBody.create(data))
                 .addHeader("subjectID", principal.getName())
                 .build();

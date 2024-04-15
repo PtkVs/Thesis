@@ -1,4 +1,4 @@
-package cyber.tf.authzforcepdpservice.controller;
+/* package cyber.tf.authzforcepdpservice.controller;
 
 import cyber.tf.authzforcepdpservice.benchmark.Benchmark;
 import cyber.tf.authzforcepdpservice.benchmark.BenchmarkResult;
@@ -101,3 +101,4 @@ public class BenchmarkController {
         return ResponseEntity.ok().body(benchmark.toCSV());
     }
 }
+*/

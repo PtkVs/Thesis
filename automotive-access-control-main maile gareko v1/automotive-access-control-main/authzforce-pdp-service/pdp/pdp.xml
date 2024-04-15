@@ -37,8 +37,8 @@
             logUrl="http://localhost:9999/log/query" /> -->
 
     <policyProvider id="policyProvider" xsi:type="StaticPolicyProvider">
-        <policyLocation>policies/permit-all.xml</policyLocation>
+        <policyLocation>policies/0.xml</policyLocation>
     </policyProvider>
 
-    <rootPolicyRef>permit-all</rootPolicyRef>
+  <!--  <rootPolicyRef>permit-all</rootPolicyRef> -->
 </pdp>

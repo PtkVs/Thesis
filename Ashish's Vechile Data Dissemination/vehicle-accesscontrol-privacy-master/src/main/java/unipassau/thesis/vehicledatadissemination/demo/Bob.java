@@ -28,7 +28,7 @@ public class Bob {
     private static String hashFolder = System.getProperty("user.dir")+"/hsh/";
 
 
-    public static int count=7;
+    public static int count=8; //need to make dynamic
 
     public static byte[] data = null;
     public static String res = "";
@@ -58,7 +58,7 @@ public class Bob {
                 byte[] stickyDocument = null;
                 try {
                    // FileInputStream read = new FileInputStream(new File(dataFolder + count ));
-                  FileInputStream read = new FileInputStream(new File(hashFolder + count + ".bin"));  //reading just hash
+                  FileInputStream read = new FileInputStream(new File(hashFolder + count + ".bin" ));  //reading just hash
                     stickyDocument = read.readAllBytes();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -69,7 +69,7 @@ public class Bob {
                         .post(RequestBody.create(stickyDocument))
                         .build();
 
-                try (Response response = httpClient.newCall(reEncryptionRequest).execute()) {
+                try (Response response = httpClient.newCall(reEncryptionRequest).execute()) { //yeha bata jump to DataAccesscontroller
                     data = response.body().bytes();
                     Files.write(Path.of(tmpFolder + count), data);
                     res = OpenPRE.INSTANCE.decrypt(privateKey,tmpFolder + count );

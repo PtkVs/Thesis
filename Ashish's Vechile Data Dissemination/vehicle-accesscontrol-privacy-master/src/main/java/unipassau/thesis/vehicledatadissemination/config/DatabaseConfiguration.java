@@ -10,12 +10,13 @@ import java.util.List;
 @Component
 public class DatabaseConfiguration {
 
+    @Autowired
     private MappingRepoDB maprepo;
 
-    @Autowired
-    public DatabaseConfiguration(MappingRepoDB maprepo){
-        this.maprepo = maprepo;
-    }
+   //@Autowired
+   // public DatabaseConfiguration(MappingRepoDB maprepo){
+   //     this.maprepo = maprepo;
+    //}
 
     public void saveMappings(String hashValue, String policyName) {
         MappingPolicyDB mapping = new MappingPolicyDB();

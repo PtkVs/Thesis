@@ -1,4 +1,4 @@
-package cyber.tf.authzforcepdpservice.benchmark;
+/*package cyber.tf.authzforcepdpservice.benchmark;
 
 public class BenchmarkResult implements CSVSerializable {
     private int id;
@@ -14,3 +14,4 @@ public class BenchmarkResult implements CSVSerializable {
         return id + ";" + nanoseconds;
     }
 }
+*/
