@@ -98,14 +98,14 @@ public class PDPService {
 
         logger.info("Loading XACML XML Adapter.");
         this.xmlAdapter = PdpEngineAdapters.newInoutAdapter(Request.class,
-                                                            Response.class,
-                                                            engine,
-                                                            pdpEngineConfiguration.getInOutProcChains(),
-                                                            (extraPdpFeatures) -> SingleDecisionXacmlJaxbRequestPreprocessor.LaxVariantFactory.INSTANCE.getInstance(pdpEngineConfiguration.getAttributeValueFactoryRegistry(),
-                                                                                                                                                                  pdpEngineConfiguration.isStrictAttributeIssuerMatchEnabled(),
-                                                                                                                                                                  pdpEngineConfiguration.isXPathEnabled(),
-                                                                                                                                                                  extraPdpFeatures),
-                                                            () -> new BaseXacmlJaxbResultPostprocessor(pdpEngineConfiguration.getClientRequestErrorVerbosityLevel()));
+                Response.class,
+                engine,
+                pdpEngineConfiguration.getInOutProcChains(),
+                (extraPdpFeatures) -> SingleDecisionXacmlJaxbRequestPreprocessor.LaxVariantFactory.INSTANCE.getInstance(pdpEngineConfiguration.getAttributeValueFactoryRegistry(),
+                        pdpEngineConfiguration.isStrictAttributeIssuerMatchEnabled(),
+                        pdpEngineConfiguration.isXPathEnabled(),
+                        extraPdpFeatures),
+                () -> new BaseXacmlJaxbResultPostprocessor(pdpEngineConfiguration.getClientRequestErrorVerbosityLevel()));
         logger.info("Loaded XACML XML Adapter.");
 
         logger.info("Loading XACML JSON Adapter.");
@@ -115,27 +115,27 @@ public class PDPService {
                 engine,
                 pdpEngineConfiguration.getInOutProcChains(),
                 (extraPdpFeatures) -> SingleDecisionXacmlJsonRequestPreprocessor.LaxVariantFactory.INSTANCE.getInstance(pdpEngineConfiguration.getAttributeValueFactoryRegistry(),
-                                                                                                                      pdpEngineConfiguration.isStrictAttributeIssuerMatchEnabled(),
-                                                                                                                      pdpEngineConfiguration.isXPathEnabled(),
-                                                                                                                      extraPdpFeatures),
+                        pdpEngineConfiguration.isStrictAttributeIssuerMatchEnabled(),
+                        pdpEngineConfiguration.isXPathEnabled(),
+                        extraPdpFeatures),
                 () -> new BaseXacmlJsonResultPostprocessor(pdpEngineConfiguration.getClientRequestErrorVerbosityLevel()));
         logger.info("Loaded XACML JSON Adapter.");
     }
 
-    public PdpEngineInoutAdapter<Request, Response> getXMLAdapter()
-    {
+    public PdpEngineInoutAdapter<Request, Response> getXMLAdapter() {
         return xmlAdapter;
     }
 
-    public PdpEngineInoutAdapter<JSONObject, JSONObject> getJSONAdapter()
-    {
+    public PdpEngineInoutAdapter<JSONObject, JSONObject> getJSONAdapter() {
         return jsonAdapter;
     }
+
+}
 
 
     //Maile gareko changes from here
 
-
+/*
         public void setPdpConfigFile(byte[] hash) { //polcies load form here instead of suru mai as policies ko hash nai mileko xain tryt this and if not pdp le kun policies load gariraxa ra kun policies ko hash liiraxa find
             try {
                 String policy = policyMap.get(Encoder.bytesToHex(hash));

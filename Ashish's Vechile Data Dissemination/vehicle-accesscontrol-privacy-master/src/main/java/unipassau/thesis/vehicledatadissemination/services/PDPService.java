@@ -59,15 +59,15 @@ public class PDPService {
 
             // Convert the normal string to JSON
             String jsonData = "{\n" +
-                    "      \"Request\": {\n" +
+                    "  \"Request\": {\n" +
                     "    \"Category\": [\n" +
-                    "{\n" +
+                    "      {\n" +
                     "        \"CategoryId\": \"urn:oasis:names:tc:xacml:3.0:attribute-category:action\",\n" +
                     "        \"Attribute\": [\n" +
                     "          {\n" +
                     "            \"AttributeId\": \"urn:oasis:names:tc:xacml:1.0:action:action-id\",\n" +
                     "            \"DataType\": \"http://www.w3.org/2001/XMLSchema#string\",\n" +
-                    "            \"Value\": \"POST\"\n" +
+                    "            \"Value\": \"GET\"\n" +
                     "          }\n" +
                     "        ]\n" +
                     "      },\n" +
@@ -77,7 +77,7 @@ public class PDPService {
                     "          {\n" +
                     "            \"AttributeId\": \"urn:oasis:names:tc:xacml:1.0:subject:subject-id\",\n" +
                     "            \"DataType\": \"http://www.w3.org/2001/XMLSchema#string\",\n" +
-                    "            \"Value\": \"pratik\"\n" +
+                    "            \"Value\": \"carsentinel\"\n" +
                     "          }\n" +
                     "        ]\n" +
                     "      },\n" +
@@ -87,7 +87,27 @@ public class PDPService {
                     "          {\n" +
                     "            \"AttributeId\": \"urn:oasis:names:tc:xacml:1.0:resource:resource-id\",\n" +
                     "            \"DataType\": \"http://www.w3.org/2001/XMLSchema#string\",\n" +
-                    "            \"Value\": \"/authorize\"\n" +
+                    "            \"Value\": \"/vehicle/camera\"\n" +
+                    "          }\n" +
+                    "        ]\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"CategoryId\": \"urn:oasis:names:tc:xacml:3.0:attribute-category:resource\",\n" +
+                    "        \"Attribute\": [\n" +
+                    "          {\n" +
+                    "            \"AttributeId\": \"urn:oasis:names:tc:xacml:1.0:resource:resource-id\",\n" +
+                    "            \"DataType\": \"http://www.w3.org/2001/XMLSchema#string\",\n" +
+                    "            \"Value\": \"/vehicle/microphone\"\n" +
+                    "          }\n" +
+                    "        ]\n" +
+                    "      },\n" +
+                    "      {\n" +
+                    "        \"CategoryId\": \"urn:oasis:names:tc:xacml:3.0:attribute-category:resource\",\n" +
+                    "        \"Attribute\": [\n" +
+                    "          {\n" +
+                    "            \"AttributeId\": \"urn:oasis:names:tc:xacml:1.0:resource:resource-id\",\n" +
+                    "            \"DataType\": \"http://www.w3.org/2001/XMLSchema#string\",\n" +
+                    "            \"Value\": \"/vehicle/proximitySensor\"\n" +
                     "          }\n" +
                     "        ]\n" +
                     "      }\n" +
@@ -113,9 +133,19 @@ public class PDPService {
             // Get the response code
             int responseCode = connection.getResponseCode();
 
-            // Check if the request was successful (HTTP status code 200)
             if (responseCode == HttpURLConnection.HTTP_OK) {
-                System.out.println("PDP config updated successfully");
+
+                // Process the response based on PDP decision
+                String pdpDecision = convertStreamToString(connection.getInputStream());
+
+                if ("Permit".equals(pdpDecision)) {
+                    System.out.println("PDP's decision is PERMIT. So, Proceeding with encryption.");
+
+                    // Call the method to perform encryption
+                    performEncryption();
+                } else {
+                    System.out.println("PDP denied the request. Aborting encryption.");
+                }
             } else {
                 System.out.println("Failed to update PDP config. Response Code: " + responseCode);
             }
@@ -127,6 +157,19 @@ public class PDPService {
         }
         return false;
     }
+
+    public static String convertStreamToString(InputStream inputStream) throws IOException {
+        StringBuilder stringBuilder = new StringBuilder();
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line).append("\n");
+            }
+        }
+        return stringBuilder.toString();
+    }
+
+
 
 
     private String loadProperties() {
@@ -146,7 +189,9 @@ public class PDPService {
     }
 
 
-    private Document convertStringToXML(String policyContent) throws ParserConfigurationException, IOException, SAXException {
+
+
+   /* private Document convertStringToXML(String policyContent) throws ParserConfigurationException, IOException, SAXException {
         // Create a DocumentBuilder
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -182,5 +227,5 @@ public class PDPService {
             e.printStackTrace();
             return null;
         }
-    }
+    } */
 }

@@ -19,11 +19,22 @@
             <artifactId>authzforce-ce-core-pdp-engine</artifactId>
             <version>19.0.0</version>
         </dependency>
+
+        <!--
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
             <version>3.0.1</version>
+        </dependency> -->
+
+        <!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl -->
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>4.0.4</version>
         </dependency>
+
+
         <dependency>
             <groupId>com.sun.xml.messaging.saaj</groupId>
             <artifactId>saaj-impl</artifactId>
@@ -34,6 +45,7 @@
             <artifactId>jts-core</artifactId>
             <version>1.18.2</version>
         </dependency>
+
         <dependency>
             <groupId>de.securedimensions.geoxacml</groupId>
             <artifactId>authzforce-geoxacml-basic</artifactId>
@@ -52,7 +64,7 @@
             <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>
                 <artifactId>maven-jaxb2-plugin</artifactId>
-                <version>0.14.0</version>
+                <version>0.15.1</version>
                 <configuration>
                     <debug>false</debug>
                     <strict>false</strict>

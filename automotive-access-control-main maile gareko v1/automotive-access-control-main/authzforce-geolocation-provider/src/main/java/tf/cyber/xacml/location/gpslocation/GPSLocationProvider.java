@@ -133,6 +133,7 @@ public class GPSLocationProvider extends BaseNamedAttributeProvider {
         }
     }
 
+    /*
     public static class Factory extends CloseableNamedAttributeProvider.FactoryBuilder<GPSLocationProviderDescriptor> {
         @Override
         public Class<GPSLocationProviderDescriptor> getJaxbClass() {
@@ -143,6 +144,6 @@ public class GPSLocationProvider extends BaseNamedAttributeProvider {
         public CloseableNamedAttributeProvider.DependencyAwareFactory getInstance(GPSLocationProviderDescriptor conf, EnvironmentProperties environmentProperties) throws IllegalArgumentException {
             return new DependencyAwareAttributeProviderFactory(conf.getId(), conf.getGpsURL());
         }
-    }
+    } */
 }
 

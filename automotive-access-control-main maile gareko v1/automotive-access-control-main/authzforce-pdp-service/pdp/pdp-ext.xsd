@@ -7,6 +7,7 @@
     </xs:annotation>
 
     <!-- Do not specify schema locations here. Define the schema locations in the XML catalog instead (see file 'catalog.xml'). -->
-   <!-- <xs:import namespace="http://cyber.tf/xacml/location/gpslocation" />
-    <xs:import namespace="http://cyber.tf/xacml/pollingfrequency" /> -->
+    <xs:import namespace="http://cyber.tf/xacml/location/gpslocation" />
+    <xs:import namespace="http://cyber.tf/xacml/pollingfrequency" />  
 </xs:schema>
+

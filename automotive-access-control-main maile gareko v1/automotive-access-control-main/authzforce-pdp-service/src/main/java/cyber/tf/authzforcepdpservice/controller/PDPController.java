@@ -96,11 +96,9 @@ public class PDPController {
 
         logger.info("Decision: {}", decision);
 
-        return res.toString();
+      //  return res.toString();
+        return decision;
     }
-
-     //
-    //}
 }
 
 
