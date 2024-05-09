@@ -34,9 +34,10 @@ public class PDPService {
     @Autowired
     private org.springframework.core.env.Environment env;
 
-    public boolean updateRemotePDPServer(String policyContent) {
+    public boolean updateRemotePDPServer() {
         loadProperties();
 
+        boolean decisionEnc = false;
         try {
 
             // Construct the URL for the updatePDPConfig endpoint
@@ -52,7 +53,7 @@ public class PDPService {
             connection.setDoOutput(true);
 
             // Set the content type to XML
-         //   connection.setRequestProperty("Content-Type", "application/json");
+            //   connection.setRequestProperty("Content-Type", "application/json");
 
             // Set the content type to XML
             connection.setRequestProperty("Content-Type", "application/json");
@@ -116,17 +117,15 @@ public class PDPService {
                     "}\n";
 
 
-
-
             try (OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8)) {
                 writer.write(jsonData);
                 writer.flush();
             }
 
 
-         //   try (OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8)) {
-           //     writer.write(jsonData);
-             //   writer.flush();
+            //   try (OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8)) {
+            //     writer.write(jsonData);
+            //   writer.flush();
             //}
 
 
@@ -137,25 +136,41 @@ public class PDPService {
 
                 // Process the response based on PDP decision
                 String pdpDecision = convertStreamToString(connection.getInputStream());
+                pdpDecision = pdpDecision.trim();
 
                 if ("Permit".equals(pdpDecision)) {
                     System.out.println("PDP's decision is PERMIT. So, Proceeding with encryption.");
+                    decisionEnc = true;
 
-                    // Call the method to perform encryption
-                    performEncryption();
-                } else {
+                    // Close the connection
+                    connection.disconnect();
+
+                } else if ("Deny".equals(pdpDecision)) {
                     System.out.println("PDP denied the request. Aborting encryption.");
+
+
+                    // Close the connection
+                    connection.disconnect();
+
+                    System.exit(0);
+
+
                 }
             } else {
-                System.out.println("Failed to update PDP config. Response Code: " + responseCode);
+                System.out.println("Failed to update PDP config. Response Code: " + responseCode + "The program will exit now.");
+
+                // Close the connection
+                connection.disconnect();
+
+                System.exit(0);
+
             }
 
-            // Close the connection
-            connection.disconnect();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return decisionEnc;
     }
 
     public static String convertStreamToString(InputStream inputStream) throws IOException {

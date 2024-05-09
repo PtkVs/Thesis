@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import unipassau.thesis.vehicledatadissemination.config.DatabaseConfiguration;
 import unipassau.thesis.vehicledatadissemination.config.PolicyConfiguration;
 import unipassau.thesis.vehicledatadissemination.config.PolicyFile;
 import unipassau.thesis.vehicledatadissemination.services.PDPService;
@@ -36,7 +37,7 @@ import java.util.Map;
 public class DataAccessController {
 
     public static String dataFolder = System.getProperty("user.dir")+"/data/";
-    public static int count=8; //need to make it dynamic
+    public static int count=0; //need to make it dynamic
 
     private final String POLICY_STORE_PATH = "policies";
 
@@ -55,6 +56,9 @@ public class DataAccessController {
 
    @Autowired
    private PolicyConfiguration policyConfiguration;
+
+   @Autowired
+   private DatabaseConfiguration databaseConfiguration;
 
 
 
@@ -89,61 +93,32 @@ public class DataAccessController {
 
         //Conversion of byte[] to string
         String hashValue = Encoder.bytesToHex(stickyDocumentMap.get("hash"));
-        String policyFileName = policyConfiguration.policyMap().get(hashValue);
+        String policyFilename = policyConfiguration.policyMap().get(hashValue);
 
-        if(policyFileName != null) {
+       boolean hashRes = databaseConfiguration.authenticate(hashValue);
+       if(hashRes){
+          boolean pdpDecision =  pdpService.updateRemotePDPServer();
 
-            //Retreive the XML policy file
-           File policyXmlFile = new File((POLICY_STORE_PATH + File.separator + policyFileName));
-           PolicyFile policyFile = new PolicyFile(policyFileName, policyXmlFile);
+          if(pdpDecision){
+              // Permit decision
+              byte[] onlyData = null;
+              try {
+                  FileInputStream read = new FileInputStream(new File(dataFolder + count));
 
-            //Read the content of the policy file
-            String policyContent = new String(Files.readAllBytes(policyXmlFile.toPath()), StandardCharsets.UTF_8);
-
-
-            //Read the content of the policy file
-          //  byte[] policyContent = Files.readAllBytes(policyXmlFile.toPath());
-
-
-
-
-
-            // Retrieve the policy to enforce from the hash and set the pdp config file
-          //  policyEnforcementService.setPdpConfigFile(stickyDocumentMap.get("hash"));  //PolicyEnforcementService class ko setpdpConfigFile method call vayo jasle pdp engine set garna according to used polices help garxa and hash compare garinxa given by bob and the actual policy
-
-            // Create XACML request for the PDP and get access control decision.
-            //  boolean res = policyEnforcementService.authorize(principal, request.getRequestURI(), request.getMethod());   //pdp setup vayo now it will authenticate the values sent in the request with the xml policy parameters
+                  onlyData = read.readAllBytes();
+              } catch (IOException e) {
+                  e.printStackTrace();
+              }
+              Map<String, byte[]> data = DataHandler.readOnlyData(onlyData);
+              return new ResponseEntity<>(proxyReEncryptionService.reEncrypt
+                      (data.get("data"), principal), HttpStatus.OK);
 
 
+          } else{
+              System.out.println("Process Terminated as the hash do not match");
+              System.exit(0);
 
-            boolean res = pdpService.updateRemotePDPServer(policyContent);
-
-            if (res) {
-                // Permit decision
-
-                byte[] onlyData = null;
-                try {
-                    FileInputStream read = new FileInputStream(new File(dataFolder + count));
-
-                    onlyData = read.readAllBytes();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Map<String, byte[]> data = DataHandler.readOnlyData(onlyData);
-                return new ResponseEntity<>(proxyReEncryptionService.reEncrypt
-                        (data.get("data"), principal), HttpStatus.OK);
-
-
-            } else {
-                // Deny decision
-                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-            }
-
-        } else {
-            // Policy not found
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-
+          }
+       }    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 }

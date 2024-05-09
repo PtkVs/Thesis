@@ -13,9 +13,9 @@ public class DatabaseConfiguration {
     @Autowired
     private MappingRepoDB maprepo;
 
-   //@Autowired
-   // public DatabaseConfiguration(MappingRepoDB maprepo){
-   //     this.maprepo = maprepo;
+    //@Autowired
+    // public DatabaseConfiguration(MappingRepoDB maprepo){
+    //     this.maprepo = maprepo;
     //}
 
     public void saveMappings(String hashValue, String policyName) {
@@ -33,6 +33,23 @@ public class DatabaseConfiguration {
         for (MappingPolicyDB mapping : mappings) {
             System.out.println("HashValue: " + mapping.getHashValue() + ", PolicyName: " + mapping.getPolicyName());
         }
+    }
+
+    public boolean authenticate(String hashValue) {
+
+        //object created so that getter methods of the MappingPolicyDB classes can be invoked, check its availability and compare for authentication
+       MappingPolicyDB mapped = maprepo.findByHashValue(hashValue);
+       if(mapped !=null && mapped.getHashValue().equals(hashValue)){
+
+           // Hash value match a record in the database
+           return true;
+       }  else {
+           // No match found in the database
+           return false;
+       }
+
+
+
     }
 }
 

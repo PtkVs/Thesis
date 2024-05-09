@@ -48,7 +48,7 @@ public class PDPController {
     }
 
 
-    @RequestMapping(value = "/authorize/json",
+    @RequestMapping(value = "/application/json",
             method = RequestMethod.POST,
             consumes = {"application/json", "application/xacml+json"},
             produces = {"application/json", "application/xacml+json"}
@@ -95,6 +95,8 @@ public class PDPController {
         }
 
         logger.info("Decision: {}", decision);
+
+        System.out.println();
 
       //  return res.toString();
         return decision;

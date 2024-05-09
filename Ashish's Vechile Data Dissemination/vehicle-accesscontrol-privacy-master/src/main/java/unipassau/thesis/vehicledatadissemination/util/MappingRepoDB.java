@@ -8,5 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 
 public interface MappingRepoDB extends JpaRepository<MappingPolicyDB, Long> {
+    MappingPolicyDB findByHashValue(String hashValue);
+    MappingPolicyDB findByPolicyName(String policyFilename);
 }
 

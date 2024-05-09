@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pdp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xmlns="http://authzforce.github.io/core/xmlns/pdp/8"
-     version="8.0" maxIntegerValue="2147483648"
 
-        >
+     version="8.0" maxIntegerValue="2147483648">
+
+
+
+
 
 
     <attributeDatatype>urn:ogc:def:dataType:geoxacml:1.0:geometry</attributeDatatype>
@@ -28,25 +31,29 @@
     <function>urn:ogc:def:function:geoxacml:1.0:geometry-set-equals</function>
     <function>urn:oasis:names:tc:xacml:3.0:function:dateTime-in-dayOfWeek-range</function>
 
-<!--
-    <attributeProvider
-            id="gps"
-            xmlns:gps="http://cyber.tf/xacml/location/gpslocation"
-            xsi:type="gps:GPSLocationProviderDescriptor"
-            xmlns:xacml="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-            gpsURL="http://localhost:8081/"/> -->
+    <!--
+        <attributeProvider
+                id="gps"
+                xmlns:gps="http://cyber.tf/xacml/location/gpslocation"
+                xsi:type="gps:GPSLocationProviderDescriptor"
+                xmlns:xacml="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+                gpsURL="http://localhost:8081/"/> -->
 
     <attributeProvider
             id="pollingfrequency"
             xmlns:pf="http://cyber.tf/xacml/pollingfrequency"
             xsi:type="pf:PollingFrequencyProviderDescriptor"
             xmlns:xacml="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-            logUrl="http://localhost:9999/log/query"/>
+            logUrl="http://localhost:9999/log/query"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    />
 
     <policyProvider id="policyProvider" xsi:type="StaticPolicyProvider">
-        <policyLocation>policies/example-tac.xml</policyLocation>
+        <policyLocation>policies/example-pf.xml</policyLocation>
     </policyProvider>
 
     <!--  <rootPolicyRef>permit-all</rootPolicyRef> -->
 </pdp>
+
+
 

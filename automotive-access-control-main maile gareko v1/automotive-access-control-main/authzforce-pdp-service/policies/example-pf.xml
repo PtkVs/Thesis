@@ -3,7 +3,7 @@
         Version="1.0"
         PolicyId="DashMonPolicy"
         xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-        RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit">
+          RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit">
   <Target>
     <AnyOf>
       <AllOf>
@@ -15,6 +15,8 @@
                   MustBePresent="true"
                   DataType="http://www.w3.org/2001/XMLSchema#string"/>
         </Match>
+
+
       </AllOf>
     </AnyOf>
   </Target>
@@ -40,7 +42,7 @@
         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-greater-than-or-equal">
             <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-one-and-only">
                 <AttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#integer"
-                                     AttributeId="urn:tf:cyber:xacml:polling-frequency:time-since-last-access:ms"
+                                     AttributeId="urn:tf:cyber:xacml:polling-frequency: time-since-last-access:ms"
                                      Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment"
                                      MustBePresent="true"
                 />
