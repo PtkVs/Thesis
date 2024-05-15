@@ -47,7 +47,7 @@ public class GPSLocationProvider extends BaseNamedAttributeProvider {
 
         this.supportedDesignatorType = createAttributeDesignator(
                 this.gpsLocationFqn,
-                GeometryValue.DATATYPE
+                GeometryValue.DATATYPEs
         );
     }
 
