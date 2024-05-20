@@ -17,13 +17,18 @@
         </Match>
 
 
+
       </AllOf>
     </AnyOf>
   </Target>
 
+
+
+
   <Rule
           Effect="Permit"
           RuleId="CameraData">
+
     <Target>
       <AnyOf>
         <AllOf>
@@ -42,12 +47,12 @@
         <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-greater-than-or-equal">
             <Apply FunctionId="urn:oasis:names:tc:xacml:1.0:function:integer-one-and-only">
                 <AttributeDesignator DataType="http://www.w3.org/2001/XMLSchema#integer"
-                                     AttributeId="urn:tf:cyber:xacml:polling-frequency: time-since-last-access:ms"
+                                     AttributeId="urn:tf:cyber:xacml:polling-frequency:time-since-last-access:ms"
                                      Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment"
                                      MustBePresent="true"
                 />
             </Apply>
-            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">33</AttributeValue>
+            <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#integer">64800000</AttributeValue>
         </Apply>
     </Condition>
   </Rule>
