@@ -44,7 +44,7 @@
             xmlns:pf="http://cyber.tf/xacml/pollingfrequency"
             xsi:type="pf:PollingFrequencyProviderDescriptor"
             xmlns:xacml="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-            logUrl="http://localhost:9999/log/query"
+            logUrl="http://localhost:9999/log/save"
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     />
 
