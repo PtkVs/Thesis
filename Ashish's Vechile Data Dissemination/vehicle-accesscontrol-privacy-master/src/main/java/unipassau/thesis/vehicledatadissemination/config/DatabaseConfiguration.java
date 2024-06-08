@@ -38,7 +38,7 @@ public class DatabaseConfiguration {
     public boolean authenticate(String hashValue) {
 
         //object created so that getter methods of the MappingPolicyDB classes can be invoked, check its availability and compare for authentication
-       MappingPolicyDB mapped = maprepo.findByHashValue(hashValue);
+       MappingPolicyDB mapped = maprepo.findByHashValue(hashValue); //mapped vaneko db bata ako hash value vayo where hashValue vaneko Bob bata ako request ko value
        if(mapped !=null && mapped.getHashValue().equals(hashValue)){
 
            // Hash value match a record in the database

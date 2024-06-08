@@ -28,7 +28,7 @@ public class Bob {
     private static String hashFolder = System.getProperty("user.dir")+"/hsh/";
 
 
-    public static int count=0; //need to make dynamic
+    public static int count=77; //need to make dynamic
 
     public static byte[] data = null;
     public static String res = "";

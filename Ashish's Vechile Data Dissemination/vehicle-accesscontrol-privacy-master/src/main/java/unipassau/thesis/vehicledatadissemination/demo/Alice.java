@@ -30,7 +30,7 @@ public class Alice {
 
     public static String gpsUrl = "http://localhost:8081/";
 
-    public static int count=0;
+    public static int count=77;
 
 
     public static JSONObject res = new JSONObject();

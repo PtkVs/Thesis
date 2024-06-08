@@ -49,7 +49,7 @@
     />
 
     <policyProvider id="policyProvider" xsi:type="StaticPolicyProvider">
-        <policyLocation>policies/example-pf.xml</policyLocation>
+        <policyLocation>policies/example-tac.xml</policyLocation>
     </policyProvider>
 
     <!--  <rootPolicyRef>permit-all</rootPolicyRef> -->

@@ -37,7 +37,7 @@ import java.util.Map;
 public class DataAccessController {
 
     public static String dataFolder = System.getProperty("user.dir")+"/data/";
-    public static int count=0; //need to make it dynamic
+    public static int count=77; //need to make it dynamic
 
     private final String POLICY_STORE_PATH = "policies";
 

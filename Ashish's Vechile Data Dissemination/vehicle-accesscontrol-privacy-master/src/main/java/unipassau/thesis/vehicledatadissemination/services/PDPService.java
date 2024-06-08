@@ -41,7 +41,7 @@ public class PDPService {
         try {
 
             // Construct the URL for the updatePDPConfig endpoint
-            URL url = new URL(pdpServerUrl + "authorize/json");
+            URL url = new URL(pdpServerUrl + "application/json");
 
             // Open a connection to the URL
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
