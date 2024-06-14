@@ -13,7 +13,7 @@ public class MappingPolicyDB {
     private String policyName;
 
     @Lob
-    private String policyRequest;
+    private String policyRequestPath;
 
 
     public Long getID() {
@@ -40,12 +40,12 @@ public class MappingPolicyDB {
         this.policyName = policyName;
     }
 
-    public String getPolicyRequest(){
-        return policyRequest;
+    public String getPolicyReqPath(){
+        return policyRequestPath;
     }
 
-    public void setPolicyRequest(String policyRequest){
-        this.policyRequest = policyRequest;
+    public void setPolicyReqPath(String policyRequest){
+        this.policyRequestPath = policyRequest;
     }
 }
 

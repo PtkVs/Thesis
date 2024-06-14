@@ -1,37 +1,66 @@
 package unipassau.thesis.vehicledatadissemination.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import unipassau.thesis.vehicledatadissemination.util.MappingRepoDB;
 import unipassau.thesis.vehicledatadissemination.model.MappingPolicyDB;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 @Component
 public class DatabaseConfiguration {
 
+    private final Logger logger = LoggerFactory.getLogger(PolicyConfiguration.class);
+
     @Autowired
     private MappingRepoDB maprepo;
+
+
 
     //@Autowired
     // public DatabaseConfiguration(MappingRepoDB maprepo){
     //     this.maprepo = maprepo;
     //}
 
-    public void saveMappings(String hashValue, String policyName) {
-        MappingPolicyDB mapping = new MappingPolicyDB();
+
+   public void saveMappings(String hashValue, String policyName) {
+       //For Saving hashValue and PolicyName in the DB
+       MappingPolicyDB mapping = new MappingPolicyDB();
         mapping.setHashValue(hashValue);
         mapping.setPolicyName(policyName);
+
+        //For storing the metadata i.e path of the request file along with hashValue and policyName in the DB
+       final String Request_Direcotry_Path = System.getProperty("user.dir")+"/requests/";
+       logger.info("Saving request file paths to database.");
+
+       File requestDirectory = new File(Request_Direcotry_Path);
+       File[] requestFiles = requestDirectory.listFiles();
+
+       if (requestFiles != null) {
+           for (File file : requestFiles) {
+               mapping.setPolicyReqPath(file.getAbsolutePath()); // Save the absolute path of the request file
+
+
+           }
+       } else {
+           logger.warn("No request files found in directory: {}", Request_Direcotry_Path);
+       }
+
 
         maprepo.save(mapping);
         System.out.println("Saved to DB");
     }
 
+
     public void printAllMappings() {
         List<MappingPolicyDB> mappings = maprepo.findAll();
         System.out.println("All mappings in the database:");
         for (MappingPolicyDB mapping : mappings) {
-            System.out.println("HashValue: " + mapping.getHashValue() + ", PolicyName: " + mapping.getPolicyName());
+            System.out.println("HashValue: " + mapping.getHashValue() + ", PolicyName: " + mapping.getPolicyName() + ", DirectoryPath: " + mapping.getPolicyReqPath());
         }
     }
 
