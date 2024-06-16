@@ -28,10 +28,7 @@ public class DatabaseConfiguration {
 
 
    public void saveMappings(String hashValue, String policyName) {
-       //For Saving hashValue and PolicyName in the DB
-       MappingPolicyDB mapping = new MappingPolicyDB();
-        mapping.setHashValue(hashValue);
-        mapping.setPolicyName(policyName);
+
 
         //For storing the metadata i.e path of the request file along with hashValue and policyName in the DB
        final String Request_Direcotry_Path = System.getProperty("user.dir")+"/requests/";
@@ -42,18 +39,22 @@ public class DatabaseConfiguration {
 
        if (requestFiles != null) {
            for (File file : requestFiles) {
-               mapping.setPolicyReqPath(file.getAbsolutePath()); // Save the absolute path of the request file
-
+               //To avoid confusion of having multiple names and values
+               if(file.getName().equals(policyName)) {
+                   //For Saving hashValue, PolicyName request path in the DB
+                   MappingPolicyDB mapping = new MappingPolicyDB();
+                   mapping.setHashValue(hashValue);
+                   mapping.setPolicyName(policyName);
+                   mapping.setPolicyReqPath(file.getAbsolutePath()); // Save the absolute path of the request file
+                   maprepo.save(mapping);
+               }
 
            }
        } else {
            logger.warn("No request files found in directory: {}", Request_Direcotry_Path);
        }
-
-
-        maprepo.save(mapping);
-        System.out.println("Saved to DB");
-    }
+       System.out.println("Saved to DB");
+   }
 
 
     public void printAllMappings() {
@@ -76,9 +77,10 @@ public class DatabaseConfiguration {
            // No match found in the database
            return false;
        }
+    }
 
-
-
+    public MappingPolicyDB getMappingByHashValue(String hashValue) {
+        return maprepo.findByHashValue(hashValue);
     }
 }
 

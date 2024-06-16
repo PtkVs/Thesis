@@ -65,7 +65,7 @@ public class PolicyConfiguration {
 
 
         // Print all mappings which was saved in the db just checking ko lagi matra yeha PolicyConfiguratin ma rakheko nothing else
-        policyMapping.printAllMappings();
+       policyMapping.printAllMappings();
 
         return policyMap;
     }
