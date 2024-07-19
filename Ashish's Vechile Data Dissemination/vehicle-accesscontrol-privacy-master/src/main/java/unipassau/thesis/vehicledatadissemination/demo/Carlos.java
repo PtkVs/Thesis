@@ -15,13 +15,13 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 
-public class Bob {
+public class Carlos {
     private static Logger LOG = LoggerFactory
-            .getLogger(Bob.class);
+            .getLogger(Carlos.class);
 
     public static String cryptoFolder = System.getProperty("user.dir")+"/crypto/";
     public static String dataFolder = System.getProperty("user.dir")+"/data/";
-    public static String privateKey = cryptoFolder + "bob-private-key";
+    public static String privateKey = cryptoFolder + "carlos-private-key";
     public static String tmpFolder = System.getProperty("user.dir")+"/tmp/";
 
     public static String serverUrl = "http://localhost:8080/";
@@ -29,7 +29,7 @@ public class Bob {
     private static String hashFolder = System.getProperty("user.dir")+"/hsh/";
 
 
-    public static int count=77; //need to make dynamic
+    public static int count=99; //need to make dynamic
 
     public static byte[] data = null;
     public static String res = "";
@@ -50,7 +50,7 @@ public class Bob {
     }
 
     public static void main(String[] args) {
-        OkHttpClient httpClient = createAuthenticatedClient("bob", "bob");
+        OkHttpClient httpClient = createAuthenticatedClient("carlos", "carlos");
         ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
         exec.scheduleAtFixedRate(new Runnable() {
             @Override
@@ -76,8 +76,18 @@ public class Bob {
                     res = OpenPRE.INSTANCE.decrypt(privateKey,tmpFolder + count );
                     LOG.info("Decrypted response is:" + res);
 
-                    JSONObject jsonObject = new JSONObject(res);
+
+                    // Write the decrypted message to a new .txt file
+                    Path decryptedFilePath = Paths.get(tmpFolder, "decrypted_message_" + count + ".txt");
+                    Files.writeString(decryptedFilePath, res);
+
+                    // Read the message from the newly created .txt file
+                    String decryptedMessage = Files.readString(decryptedFilePath);
+                    JSONObject jsonObject = new JSONObject(decryptedMessage);
                     System.out.print(jsonObject.toString(4) + " ");
+
+                  //  JSONObject jsonObject = new JSONObject(res);
+                   // System.out.print(jsonObject.toString(4) + " ");
 
                 } catch (IOException e) {
                     //Change -commented below line because we were getting an error

@@ -12,6 +12,10 @@ public class DebugGPSDataService implements GPSDataService {
     @Override
     public GPSData getGpsData() {
         return GPSData.builder()
+                .header("Speed")
+                .timestamp(5d)
+                .build();
+                /*
                 .header("DEBUG")
                 .antennaAltitudeUnit(GPSData.AltitudeUnit.METER)
                 .antennaAltitude(400d)
@@ -20,6 +24,6 @@ public class DebugGPSDataService implements GPSDataService {
                 .longitude(BigDecimal.valueOf(12.153647070181622d))
                 .latitude(BigDecimal.valueOf(47.87224906970429d))
                 .timestamp(0d)
-                .build();
+                .build(); */
     }
 }

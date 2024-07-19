@@ -7,7 +7,7 @@ import org.ow2.authzforce.core.pdp.impl.BasePdpEngine;
 import org.ow2.authzforce.xacml.identifiers.XacmlAttributeId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import unipassau.thesis.vehicledatadissemination.demo.Bob;
+import unipassau.thesis.vehicledatadissemination.demo.Carlos;
 
 import java.security.Principal;
 import java.util.Optional;

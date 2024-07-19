@@ -83,7 +83,7 @@
               MustBePresent="false"/>
           </Apply>
           <AttributeValue DataType="urn:oasis:names:tc:xacml:3.0:data‑type:dayOfWeek">1+02:00</AttributeValue>
-          <AttributeValue DataType="urn:oasis:names:tc:xacml:3.0:data‑type:dayOfWeek">7+02:00</AttributeValue>
+          <AttributeValue DataType="urn:oasis:names:tc:xacml:3.0:data‑type:dayOfWeek">5+02:00</AttributeValue>
         </Apply>
 
         <Apply FunctionId="urn:oasis:names:tc:xacml:2.0:function:time-in-range">
@@ -94,8 +94,8 @@
               Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment"
               MustBePresent="true"/>
           </Apply>
+          <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#time">20:00:00+02:00</AttributeValue>
           <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#time">08:00:00+02:00</AttributeValue>
-          <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#time">21:00:00+02:00</AttributeValue>
         </Apply>
       </Apply>
     </Condition>
