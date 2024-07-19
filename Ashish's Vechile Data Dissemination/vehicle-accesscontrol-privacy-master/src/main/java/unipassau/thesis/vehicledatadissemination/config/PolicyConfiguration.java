@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import unipassau.thesis.vehicledatadissemination.model.MappingPolicyDB;
 import unipassau.thesis.vehicledatadissemination.util.Encoder;
 
 import java.io.File;
@@ -55,6 +56,7 @@ public class PolicyConfiguration {
                 //Store policy in the database using the service
                 policyMapping.saveMappings(hashValue, policyName);
 
+
                 policyMap.put(hashValue, policyName);
             }
 
@@ -63,10 +65,14 @@ public class PolicyConfiguration {
 
 
         // Print all mappings which was saved in the db just checking ko lagi matra yeha PolicyConfiguratin ma rakheko nothing else
-        policyMapping.printAllMappings();
+       policyMapping.printAllMappings();
 
         return policyMap;
     }
+
+
+
+
 
 }
 

@@ -34,14 +34,14 @@ public class PDPService {
     @Autowired
     private org.springframework.core.env.Environment env;
 
-    public boolean updateRemotePDPServer() {
+    public boolean updateRemotePDPServer(String requestContent) {
         loadProperties();
 
         boolean decisionEnc = false;
         try {
 
             // Construct the URL for the updatePDPConfig endpoint
-            URL url = new URL(pdpServerUrl + "authorize/json");
+            URL url = new URL(pdpServerUrl + "application/json");
 
             // Open a connection to the URL
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -52,81 +52,18 @@ public class PDPService {
             // Enable input/output streams
             connection.setDoOutput(true);
 
-            // Set the content type to XML
-            //   connection.setRequestProperty("Content-Type", "application/json");
 
             // Set the content type to XML
             connection.setRequestProperty("Content-Type", "application/json");
 
             // Convert the normal string to JSON
-            String jsonData = "{\n" +
-                    "  \"Request\": {\n" +
-                    "    \"Category\": [\n" +
-                    "      {\n" +
-                    "        \"CategoryId\": \"urn:oasis:names:tc:xacml:3.0:attribute-category:action\",\n" +
-                    "        \"Attribute\": [\n" +
-                    "          {\n" +
-                    "            \"AttributeId\": \"urn:oasis:names:tc:xacml:1.0:action:action-id\",\n" +
-                    "            \"DataType\": \"http://www.w3.org/2001/XMLSchema#string\",\n" +
-                    "            \"Value\": \"GET\"\n" +
-                    "          }\n" +
-                    "        ]\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"CategoryId\": \"urn:oasis:names:tc:xacml:1.0:subject-category:access-subject\",\n" +
-                    "        \"Attribute\": [\n" +
-                    "          {\n" +
-                    "            \"AttributeId\": \"urn:oasis:names:tc:xacml:1.0:subject:subject-id\",\n" +
-                    "            \"DataType\": \"http://www.w3.org/2001/XMLSchema#string\",\n" +
-                    "            \"Value\": \"carsentinel\"\n" +
-                    "          }\n" +
-                    "        ]\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"CategoryId\": \"urn:oasis:names:tc:xacml:3.0:attribute-category:resource\",\n" +
-                    "        \"Attribute\": [\n" +
-                    "          {\n" +
-                    "            \"AttributeId\": \"urn:oasis:names:tc:xacml:1.0:resource:resource-id\",\n" +
-                    "            \"DataType\": \"http://www.w3.org/2001/XMLSchema#string\",\n" +
-                    "            \"Value\": \"/vehicle/camera\"\n" +
-                    "          }\n" +
-                    "        ]\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"CategoryId\": \"urn:oasis:names:tc:xacml:3.0:attribute-category:resource\",\n" +
-                    "        \"Attribute\": [\n" +
-                    "          {\n" +
-                    "            \"AttributeId\": \"urn:oasis:names:tc:xacml:1.0:resource:resource-id\",\n" +
-                    "            \"DataType\": \"http://www.w3.org/2001/XMLSchema#string\",\n" +
-                    "            \"Value\": \"/vehicle/microphone\"\n" +
-                    "          }\n" +
-                    "        ]\n" +
-                    "      },\n" +
-                    "      {\n" +
-                    "        \"CategoryId\": \"urn:oasis:names:tc:xacml:3.0:attribute-category:resource\",\n" +
-                    "        \"Attribute\": [\n" +
-                    "          {\n" +
-                    "            \"AttributeId\": \"urn:oasis:names:tc:xacml:1.0:resource:resource-id\",\n" +
-                    "            \"DataType\": \"http://www.w3.org/2001/XMLSchema#string\",\n" +
-                    "            \"Value\": \"/vehicle/proximitySensor\"\n" +
-                    "          }\n" +
-                    "        ]\n" +
-                    "      }\n" +
-                    "    ]\n" +
-                    "  }\n" +
-                    "}\n";
+            String jsonData = requestContent;
 
 
             try (OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8)) {
                 writer.write(jsonData);
                 writer.flush();
             }
-
-
-            //   try (OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8)) {
-            //     writer.write(jsonData);
-            //   writer.flush();
-            //}
 
 
             // Get the response code

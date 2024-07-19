@@ -30,7 +30,7 @@ public class Alice {
 
     public static String gpsUrl = "http://localhost:8081/";
 
-    public static int count=0;
+    public static int count= 77;
 
 
     public static JSONObject res = new JSONObject();
@@ -61,15 +61,20 @@ public class Alice {
                 System.out.print(res.toString(4) + " ");
                 //Change - If no GPS data then we generate Random data below - comment below line when using real data
                 //randomPlaintext= RandomStringUtils.randomAlphanumeric(8192);
+
+
+
                 LOG.info("Encrypting Data ...");
                 OpenPRE.INSTANCE.encrypt(pubKey, res.toString(), dataFolder + count);
 
+
+                LOG.info("Sticking hash of the policy to the data ...");
+                DataHandler.writer(policyFolder + count + ".xml", dataFolder + count, count);
+
                 //Change - including Random generated data as a parameter to the encrypt function - comment below line when using real data
                 //OpenPRE.INSTANCE.encrypt(pubKey, randomPlaintext, dataFolder + count);
-                LOG.info("Sticking hash of the policy to the data ...");
-                //DataHandler.writer(policyFolder + args[1], dataFolder + count);
-                //Change below- replaced args[1] with count + .xml to be able to fetch the policy file
-                DataHandler.writer(policyFolder + count + ".xml", dataFolder + count, count);
+
+
 
                 if (++count>= Integer.parseInt(args[0]) ) {
                     exec.shutdown();
@@ -79,3 +84,9 @@ public class Alice {
 
     }
 }
+
+
+
+
+
+

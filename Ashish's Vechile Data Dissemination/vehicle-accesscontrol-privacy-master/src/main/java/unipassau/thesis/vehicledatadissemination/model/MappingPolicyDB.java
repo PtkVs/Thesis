@@ -1,11 +1,9 @@
 package unipassau.thesis.vehicledatadissemination.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "Mapping_Policy_DB")
 public class MappingPolicyDB {
 
     @Id
@@ -13,6 +11,9 @@ public class MappingPolicyDB {
     private Long ID;
     private String hashValue;
     private String policyName;
+
+    @Lob
+    private String policyRequestPath;
 
 
     public Long getID() {
@@ -37,6 +38,14 @@ public class MappingPolicyDB {
 
     public void setPolicyName(String policyName) {
         this.policyName = policyName;
+    }
+
+    public String getPolicyReqPath(){
+        return policyRequestPath;
+    }
+
+    public void setPolicyReqPath(String policyRequest){
+        this.policyRequestPath = policyRequest;
     }
 }
 
