@@ -1,0 +1,10 @@
+Fuel_consumption,Throttle_position_signal,Intake_air_pressure,Absolute_throttle_position,Engine_soacking_time,Torque_converter_turbine_speed_-_Unfiltered,Clutch_operation_acknowledge,Acceleration_speed_-_Longitudinal,Indication_of_brake_switch_ON/OFF,Master_cylinder_pressure
+268.8,5.2,33,13.3,3,935.5,1,-8.5,1,325.5
+243.2,6.1,40,13.7,3,709.5,1,0.1,1,0.9
+217.6,5.2,41,13.7,3,663.5,1,0.1,1,0.9
+204.8,4.7,38,13.3,3,653,1,0.1,1,0.9
+217.6,5.7,40,13.7,3,693.8,1,0.1,1,0.9
+243.2,5.7,41,13.7,3,721.5,1,0,2,36.7
+217.6,5.7,42,13.7,3,660.8,1,0,2,61.8
+294.4,6.6,52,14.5,3,442,1,0,2,38.9
+332.8,7.1,60,14.5,3,0,1,0,2,12.5

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -38,7 +39,7 @@ import java.util.Map;
 public class DataAccessController {
 
     public static String dataFolder = System.getProperty("user.dir") + "/data/";
-    public static int count = 77; //need to make it dynamic
+    public static int count;
 
     private final String POLICY_STORE_PATH = "policies";
 
@@ -62,8 +63,9 @@ public class DataAccessController {
 
 
     @RequestMapping(method = RequestMethod.POST, value = "/authorize")
-    public ResponseEntity<byte[]> authorize(InputStream dataStream) throws Exception {   //bob le request garyo with necessary crediantials along with binary data which is encrypted data(stickyDocument) aba teslai evaluate ko lagi processing
-
+    public ResponseEntity<byte[]> authorize(InputStream dataStream, @RequestParam("count") int count) throws Exception {   //bob le request garyo with necessary crediantials along with binary data which is encrypted data(stickyDocument) aba teslai evaluate ko lagi processing
+        //Set the dynamic count value
+        this.count = count;
         // Read the binary file contained in the body of the request
         byte[] onlyHash = dataStream.readAllBytes();
 
