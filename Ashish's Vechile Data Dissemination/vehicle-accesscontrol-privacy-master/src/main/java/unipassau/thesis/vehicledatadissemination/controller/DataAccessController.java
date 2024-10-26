@@ -108,7 +108,6 @@ public class DataAccessController {
                     byte[] onlyData = null;
                     try {
                         FileInputStream read = new FileInputStream(new File(dataFolder + count));
-
                         onlyData = read.readAllBytes();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -117,6 +116,24 @@ public class DataAccessController {
                     return new ResponseEntity<>(proxyReEncryptionService.reEncrypt
                             (data.get("data"), principal), HttpStatus.OK);
 
+                    // ki yeha yesari garnu paryo data manipulation hoin vane re-encrypt garnu vanda agadi nai garnu paryo cz suru ma data Alice le encrypt garda sabbai data encrypt gareko hunxa and hash add hunxa, tesma attribute filter garera feri encrypt garnu parxa by alice then only re-encrypt garna milxa cz tyo vayena vane cerial exception auxa cz crypto keys match nai hudaina as encrypt vako binary file lai naya binary file banayo jasko kei link xaina with alice and tyo file lai re-encrypt garna pathauda cerial exception error ayo
+                        /* byte[] onlyData = null;
+                try {
+                    FileInputStream read = new FileInputStream(new File(dataFolder + count));
+                    onlyData = read.readAllBytes();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // Package data with flags for authorized attributes
+                Map<String, byte[]> data = DataHandler.readOnlyData(onlyData);
+                Map<String, byte[]> authorizedData = new HashMap<>();
+                authorizedData.put("header", data.get("header"));
+                authorizedData.put("timestamp", data.get("timestamp"));
+                authorizedData.put("quality", data.get("quality"));
+
+                // Prepare authorized data for re-encryption
+                byte[] encryptedData = proxyReEncryptionService.reEncrypt(authorizedData, principal);*/
 
                 } else {
                     System.out.println("Process Terminated as the hash do not match");

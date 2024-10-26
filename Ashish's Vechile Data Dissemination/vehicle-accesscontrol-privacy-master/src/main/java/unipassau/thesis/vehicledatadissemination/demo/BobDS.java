@@ -85,8 +85,22 @@ public class BobDS {
                     LOG.info("Decrypted response for count " + count + " is: " + res);
 
                     JSONObject jsonObject = new JSONObject(res);
+                    // ki yeha yesari garnu paryo data manipulation hoin vane re-encrypt garnu vanda agadi nai garnu paryo cz suru ma data Alice le encrypt garda sabbai data encrypt gareko hunxa and hash add hunxa, tesma attribute filter garera feri encrypt garnu parxa by alice then only re-encrypt garna milxa cz tyo vayena vane cerial exception auxa cz crypto keys match nai hudaina as encrypt vako binary file lai naya binary file banayo jasko kei link xaina with alice and tyo file lai re-encrypt garna pathauda cerial exception error ayo
+                    JSONObject filteredResponse = new JSONObject();
+                    if (jsonObject.has("header")) {
+                        filteredResponse.put("header", jsonObject.get("header"));
+                    }
+                    if (jsonObject.has("timestamp")) {
+                        filteredResponse.put("timestamp", jsonObject.get("timestamp"));
+                    }
+                    if (jsonObject.has("quality")) {
+                        filteredResponse.put("quality", jsonObject.get("quality"));
+                    }
+
+                    // Print the filtered JSON response
                     System.out.println("Decrypted JSON response for count " + count + ": ");
-                    System.out.println(jsonObject.toString(4)); // Pretty-print JSON
+                    System.out.println(filteredResponse.toString(4));  // Pretty-print filtered JSON
+
 
                 } catch (IOException e) {
                     e.printStackTrace();
