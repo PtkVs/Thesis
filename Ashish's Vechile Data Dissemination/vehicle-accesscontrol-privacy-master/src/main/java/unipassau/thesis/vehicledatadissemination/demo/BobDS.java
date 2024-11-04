@@ -86,6 +86,7 @@ public class BobDS {
 
                     JSONObject jsonObject = new JSONObject(res);
                     // ki yeha yesari garnu paryo data manipulation hoin vane re-encrypt garnu vanda agadi nai garnu paryo cz suru ma data Alice le encrypt garda sabbai data encrypt gareko hunxa and hash add hunxa, tesma attribute filter garera feri encrypt garnu parxa by alice then only re-encrypt garna milxa cz tyo vayena vane cerial exception auxa cz crypto keys match nai hudaina as encrypt vako binary file lai naya binary file banayo jasko kei link xaina with alice and tyo file lai re-encrypt garna pathauda cerial exception error ayo
+                    // ????can make this dynamic ?? according to the request of xml automatically detect attributes and change the desired attribute instead of eg. header to lattitude and show in json format  ?????
                     JSONObject filteredResponse = new JSONObject();
                     if (jsonObject.has("header")) {
                         filteredResponse.put("header", jsonObject.get("header"));
