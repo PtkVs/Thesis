@@ -76,7 +76,7 @@ public class TimeBmBobDS {
 
                     // ?count= Query Parameter
                     Request reEncryptionRequest = new Request.Builder()
-                            .url(serverUrl + "authorize?count=" + count)
+                            .url(serverUrl + "benchmark?count=" + count)
                             .post(RequestBody.create(stickyDocument))
                             .build();
 
@@ -115,3 +115,5 @@ public class TimeBmBobDS {
         }
     }
 }
+
+

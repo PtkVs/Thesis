@@ -9,9 +9,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.core.annotation.Order;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@Order(1)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     /**
@@ -34,11 +36,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
+            //  Change to /authorize or /benchmark according to the requirement i.e authorize for real work and benchmark for just benchmarking.
         http
                 .httpBasic().and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/authorize").hasRole("data_consumer").and()
+                .antMatchers(HttpMethod.POST, "/benchmark").hasRole("data_consumer").and()
                 .csrf().disable();
     }
 

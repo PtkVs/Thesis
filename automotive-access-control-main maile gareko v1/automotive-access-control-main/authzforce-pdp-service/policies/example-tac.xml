@@ -95,7 +95,7 @@
               MustBePresent="true"/>
           </Apply>
           <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#time">08:00:00+02:00</AttributeValue>
-          <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#time">21:00:00+02:00</AttributeValue>
+          <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#time">05:00:00+02:00</AttributeValue>
         </Apply>
       </Apply>
     </Condition>

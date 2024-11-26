@@ -84,7 +84,7 @@ public class CPUBmBobDS {
                 // Measure latency for re-encryption
                 long reEncryptionStartTime = System.nanoTime();  // Start time for re-encryption request
                 Request reEncryptionRequest = new Request.Builder()
-                        .url(serverUrl + "authorize?count=" + count)
+                        .url(serverUrl + "benchmark?count=" + count)
                         .post(RequestBody.create(stickyDocument))
                         .build();
 

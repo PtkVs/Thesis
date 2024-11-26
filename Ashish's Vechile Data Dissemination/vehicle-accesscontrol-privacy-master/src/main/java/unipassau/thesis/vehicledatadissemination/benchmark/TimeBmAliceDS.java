@@ -41,7 +41,7 @@ public class TimeBmAliceDS {
             return; // This return is just to satisfy the compiler that recordsToProcess is initialized
         }
 
-        int numberOfRuns = 10;  // Number of times to repeat the process
+        int numberOfRuns = 1;  // Number of times to repeat the process
         long totalExecutionTime = 0;  // To store total time for all runs
 
         // Running the process multiple times
