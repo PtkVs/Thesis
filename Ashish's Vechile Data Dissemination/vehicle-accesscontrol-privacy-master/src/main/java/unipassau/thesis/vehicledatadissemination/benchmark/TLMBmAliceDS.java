@@ -16,15 +16,15 @@ import java.lang.management.MemoryUsage;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class TLCBmAliceDS {
+public class TLMBmAliceDS {
 
-    private static final Logger LOG = LoggerFactory.getLogger(TLCBmAliceDS.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TLMBmAliceDS.class);
 
     public static String cryptoFolder = System.getProperty("user.dir") + "/crypto/";
     public static String dataFolder = System.getProperty("user.dir") + "/data/";
     public static String pubKey = cryptoFolder + "alice-public-key";
     public static String policyFolder = System.getProperty("user.dir") + "/policies/";
-    public static String csvFilePath = System.getProperty("user.dir") + "/csv/DS1-100.csv";
+    public static String csvFilePath = System.getProperty("user.dir") + "/csv/DS1-1000.csv";
     public static int count = 0;
 
     // Benchmark metrics
@@ -55,7 +55,7 @@ public class TLCBmAliceDS {
             return;
         }
 
-        int numberOfRuns = 1; // Number of times to repeat the process
+        int numberOfRuns = 10; // Number of times to repeat the process
         long totalRunTime = 0; // To calculate total time for all runs
 
         for (int run = 1; run <= numberOfRuns; run++) {

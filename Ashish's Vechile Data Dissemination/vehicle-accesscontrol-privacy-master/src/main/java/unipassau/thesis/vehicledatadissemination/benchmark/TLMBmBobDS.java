@@ -15,9 +15,9 @@ import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class TLCBmBobDS {
+public class TLMBmBobDS {
 
-    private static Logger LOG = LoggerFactory.getLogger(TLCBmBobDS.class);
+    private static Logger LOG = LoggerFactory.getLogger(TLMBmBobDS.class);
 
     public static String cryptoFolder = System.getProperty("user.dir") + "/crypto/";
     public static String dataFolder = System.getProperty("user.dir") + "/data/";

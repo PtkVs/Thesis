@@ -15,9 +15,9 @@ import java.nio.file.Path;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class TRY {
+public class abacTLMBmBobDS {
 
-    private static Logger LOG = LoggerFactory.getLogger(TLMBmBobDS.class);
+    private static Logger LOG = LoggerFactory.getLogger(abacTLMBmBobDS.class);
 
     public static String cryptoFolder = System.getProperty("user.dir") + "/crypto/";
     public static String dataFolder = System.getProperty("user.dir") + "/data/";
@@ -60,7 +60,7 @@ public class TRY {
             System.out.print("Please Enter the End of the Encrypted Count Range: ");
             int endCount = scanner.nextInt();
 
-            int numberOfRuns = 1;  // Number of times to repeat the process
+            int numberOfRuns = 10;  // Number of times to repeat the process
             long totalRunTime = 0;  // To calculate total time for all runs
 
             for (int run = 1; run <= numberOfRuns; run++) {
@@ -68,15 +68,9 @@ public class TRY {
 
                 long runStartTime = System.nanoTime();
 
-                int processedCount = 0;
-
                 for (int count = startCount; count <= endCount; count++) {
                     processRecord(count, httpClient);
-                    processedCount++; // Increment the count of successfully processed records
                 }
-
-                // Update the total request count
-                requestCount.addAndGet(processedCount);
 
                 long runEndTime = System.nanoTime();
                 long runTimeMillis = (runEndTime - runStartTime) / 1_000_000;
@@ -85,7 +79,7 @@ public class TRY {
                 LOG.info("Execution time for run {}: {} ms", run, runTimeMillis);
             }
 
-            // Calculate averages and cumulative metrics
+            // Calculate cumulative metrics
             long averageDecryptionTimePerRecord = totalDecryptionTimeMillis.get() / requestCount.get();
             long averageProcessingTimePerRecord = totalProcessingTimeMillis.get() / requestCount.get();
             long averageRunTime = totalRunTime / numberOfRuns;
@@ -93,26 +87,28 @@ public class TRY {
             long totalHeapMemoryUsedCumulative = totalHeapMemoryUsed.get();
             long totalNonHeapMemoryUsedCumulative = totalNonHeapMemoryUsed.get();
 
-            long totalDecryptionLatency = totalDecryptionLatencyMillis.get();
+            long totalExecutionLatency = totalRunTime - totalProcessingTimeMillis.get();
             long totalProcessingLatency = totalProcessingLatencyMillis.get();
-            long totalExecutionLatency = totalExecutionLatencyMillis.get();
+            long totalDecryptionLatency = totalExecutionLatency - totalProcessingLatency;
 
-            // Log cumulative metrics
             LOG.info("Cumulative Metrics Across All Runs ({} records total):", requestCount.get());
             LOG.info("  - Total Decryption Time: {} ms, Average Decryption Time per Record: {} ms",
                     totalDecryptionTimeMillis.get(), averageDecryptionTimePerRecord);
-            LOG.info("  - Total Decryption Latency: {} ms, Average: {} ms", totalDecryptionLatency, totalDecryptionLatency);
             LOG.info("  - Total Processing Time: {} ms, Average Processing Time per Record: {} ms",
                     totalProcessingTimeMillis.get(), averageProcessingTimePerRecord);
+            LOG.info("  - Total Execution Time : {} ms, Average Execution Time per Run: {} ms",
+                    totalRunTime, averageRunTime);
+
+            LOG.info("  - Total Decryption Latency: {} ms", totalDecryptionLatency);
             LOG.info("  - Total Processing Latency (Excluding Decryption): {} ms", totalProcessingLatency);
+            LOG.info("  - Total Execution Latency (Including Overhead): {} ms", totalExecutionLatency);
+
             LOG.info("  - Total Memory Consumed: {} MB (Heap: {} MB, Non-Heap: {} MB), Average Memory Consumed: {} MB",
                     totalMemoryConsumed.get() / 1024 / 1024,
                     totalHeapMemoryUsedCumulative / 1024 / 1024,
                     totalNonHeapMemoryUsedCumulative / 1024 / 1024,
                     (totalMemoryConsumed.get() / requestCount.get()) / 1024 / 1024);
-            LOG.info("  - Total Execution Time for All Runs: {} ms, Average Execution Time per Run: {} ms",
-                    totalRunTime, averageRunTime);
-            LOG.info("  - Total Execution Latency (Including Overhead): {} ms", totalExecutionLatency);
+
         }
     }
 
@@ -125,51 +121,52 @@ public class TRY {
                     .post(RequestBody.create(stickyDocument))
                     .build();
 
-            long startProcessingTime = System.nanoTime();
+            long startProcessingTime = System.nanoTime();  // Start of processing phase
 
             logMemoryUsage("Before decryption");
 
-            long decryptionTimeMillis = 0; // Initialize decryption time for this record
-            long decryptionLatencyMillis = 0; // Initialize decryption latency
-            long processingLatencyMillis = 0;
+            long decryptionStartTime = 0;
             long decryptionEndTime = 0;
+            long processingTimeMillis = 0;
+            long processingLatencyMillis = 0;
+            long decryptionLatencyMillis = 0;
+
             try (Response response = httpClient.newCall(reEncryptionRequest).execute()) {
                 data = response.body().bytes();
                 Files.write(Path.of(tmpFolder + count), data);
 
-                long decryptionStartTime = System.nanoTime();
+                // Start decryption process
+                decryptionStartTime = System.nanoTime();
                 res = OpenPRE.INSTANCE.decrypt(privateKey, tmpFolder + count);
-                 decryptionEndTime = System.nanoTime();
+                decryptionEndTime = System.nanoTime();
 
-                decryptionTimeMillis = (decryptionEndTime - decryptionStartTime) / 1_000_000;
+                // Calculate decryption latency (delay between the processing phase and decryption start)
+                decryptionLatencyMillis = (decryptionStartTime - startProcessingTime) / 1_000_000;
+                totalDecryptionLatencyMillis.addAndGet(decryptionLatencyMillis); // Cumulative decryption latency
 
-               decryptionLatencyMillis = (System.nanoTime() - decryptionStartTime) / 1_000_000;
-               // decryptionLatencyMillis = (decryptionStartTime - startProcessingTime) / 1_000_000;
-
-                totalDecryptionTimeMillis.addAndGet(decryptionTimeMillis);
-                totalDecryptionLatencyMillis.addAndGet(decryptionLatencyMillis);
+                // Calculate decryption time and add it to the cumulative decryption time
+                long decryptionTimeMillis = (decryptionEndTime - decryptionStartTime) / 1_000_000;
+                totalDecryptionTimeMillis.addAndGet(decryptionTimeMillis); // Cumulative decryption time
 
                 JSONObject jsonObject = new JSONObject(res);
                 LOG.info("Decrypted JSON response for count {}: {}", count, jsonObject.toString(4));
             }
 
-            long endProcessingTime = System.nanoTime();
-            long processingTimeMillis = (endProcessingTime - startProcessingTime) / 1_000_000;
+            long endProcessingTime = System.nanoTime(); // End of processing phase
 
-           // processingLatencyMillis = (endProcessingTime - decryptionEndTime) / 1_000_000;
-            //totalProcessingLatencyMillis.addAndGet(processingLatencyMillis);
-           processingLatencyMillis = processingTimeMillis - decryptionTimeMillis; // Exclude decryption time from processing latency
-             totalProcessingLatencyMillis.addAndGet(processingLatencyMillis);
+            // Calculate processing latency (delay between the end of decryption and total execution end)
+            processingLatencyMillis = (endProcessingTime - decryptionEndTime) / 1_000_000;
+            totalProcessingLatencyMillis.addAndGet(processingLatencyMillis); // Cumulative processing latency
 
+            // Calculate total processing time (which includes network time, I/O time, and other processing excluding decryption)
+            processingTimeMillis = (endProcessingTime - startProcessingTime) / 1_000_000;
+            totalProcessingTimeMillis.addAndGet(processingTimeMillis); // Cumulative processing time
 
-            totalProcessingTimeMillis.addAndGet(processingTimeMillis);
+            // Calculate total execution latency (sum of decryption latency and processing latency)
+            long totalExecutionLatency = decryptionLatencyMillis + processingLatencyMillis;
+            totalExecutionLatencyMillis.addAndGet(totalExecutionLatency); // Cumulative execution latency
 
             logMemoryUsage("After decryption");
-
-            // Add total execution latency (including I/O, network, and decryption time)
-           // long totalExecutionLatency = (endProcessingTime - startProcessingTime) / 1_000_000;
-                long  totalExecutionLatency = decryptionLatencyMillis + processingLatencyMillis;
-            totalExecutionLatencyMillis.addAndGet(totalExecutionLatency);
 
             requestCount.incrementAndGet();
 
@@ -177,6 +174,8 @@ public class TRY {
             LOG.error("Error processing record {}", count, e);
         }
     }
+
+
 
     private static void logMemoryUsage(String phase) {
         MemoryUsage heapMemoryUsage = memoryBean.getHeapMemoryUsage();
