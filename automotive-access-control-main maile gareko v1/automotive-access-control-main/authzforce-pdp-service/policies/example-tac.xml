@@ -9,7 +9,7 @@
     <AnyOf>
       <AllOf>
         <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-          <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">carsentinel</AttributeValue>
+          <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">bob</AttributeValue>
           <AttributeDesignator
             Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
             AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id"
@@ -32,7 +32,7 @@
     <AnyOf>
       <AllOf>
         <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-          <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">/vehicle/camera</AttributeValue>
+          <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">header</AttributeValue>
           <AttributeDesignator
             DataType="http://www.w3.org/2001/XMLSchema#string"
             AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id"
@@ -44,7 +44,7 @@
 
       <AllOf>
         <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-          <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">/vehicle/microphone</AttributeValue>
+          <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">timestamp</AttributeValue>
           <AttributeDesignator
             DataType="http://www.w3.org/2001/XMLSchema#string"
             AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id"
@@ -56,7 +56,7 @@
 
       <AllOf>
         <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-          <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">/vehicle/proximitySensor</AttributeValue>
+          <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">quality</AttributeValue>
           <AttributeDesignator
             DataType="http://www.w3.org/2001/XMLSchema#string"
             AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id"
@@ -95,7 +95,7 @@
               MustBePresent="true"/>
           </Apply>
           <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#time">08:00:00+02:00</AttributeValue>
-          <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#time">21:00:00+02:00</AttributeValue>
+          <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#time">05:00:00+02:00</AttributeValue>
         </Apply>
       </Apply>
     </Condition>

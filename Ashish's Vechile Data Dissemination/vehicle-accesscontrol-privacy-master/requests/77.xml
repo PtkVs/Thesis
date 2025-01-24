@@ -17,7 +17,7 @@
           {
             "AttributeId": "urn:oasis:names:tc:xacml:1.0:subject:subject-id",
             "DataType": "http://www.w3.org/2001/XMLSchema#string",
-            "Value": "carsentinel"
+            "Value": "bob"
           }
         ]
       },
@@ -27,7 +27,7 @@
           {
             "AttributeId": "urn:oasis:names:tc:xacml:1.0:resource:resource-id",
             "DataType": "http://www.w3.org/2001/XMLSchema#string",
-            "Value": "/vehicle/camera"
+            "Value": "latitude"
           }
         ]
       },
@@ -37,7 +37,7 @@
           {
             "AttributeId": "urn:oasis:names:tc:xacml:1.0:resource:resource-id",
             "DataType": "http://www.w3.org/2001/XMLSchema#string",
-            "Value": "/vehicle/microphone"
+            "Value": "timestamp"
           }
         ]
       },
@@ -47,7 +47,7 @@
           {
             "AttributeId": "urn:oasis:names:tc:xacml:1.0:resource:resource-id",
             "DataType": "http://www.w3.org/2001/XMLSchema#string",
-            "Value": "/vehicle/proximitySensor"
+            "Value": "quality"
           }
         ]
       }

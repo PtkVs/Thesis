@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -38,7 +39,7 @@ import java.util.Map;
 public class DataAccessController {
 
     public static String dataFolder = System.getProperty("user.dir") + "/data/";
-    public static int count = 77; //need to make it dynamic
+    public static int count;
 
     private final String POLICY_STORE_PATH = "policies";
 
@@ -62,8 +63,9 @@ public class DataAccessController {
 
 
     @RequestMapping(method = RequestMethod.POST, value = "/authorize")
-    public ResponseEntity<byte[]> authorize(InputStream dataStream) throws Exception {   //bob le request garyo with necessary crediantials along with binary data which is encrypted data(stickyDocument) aba teslai evaluate ko lagi processing
-
+    public ResponseEntity<byte[]> authorize(InputStream dataStream, @RequestParam("count") int count) throws Exception {   //bob le request garyo with necessary crediantials along with binary data which is encrypted data(stickyDocument) aba teslai evaluate ko lagi processing
+        //Set the dynamic count value
+        this.count = count;
         // Read the binary file contained in the body of the request
         byte[] onlyHash = dataStream.readAllBytes();
 
@@ -106,7 +108,6 @@ public class DataAccessController {
                     byte[] onlyData = null;
                     try {
                         FileInputStream read = new FileInputStream(new File(dataFolder + count));
-
                         onlyData = read.readAllBytes();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -115,6 +116,24 @@ public class DataAccessController {
                     return new ResponseEntity<>(proxyReEncryptionService.reEncrypt
                             (data.get("data"), principal), HttpStatus.OK);
 
+                    // ki yeha yesari garnu paryo data manipulation hoin vane re-encrypt garnu vanda agadi nai garnu paryo cz suru ma data Alice le encrypt garda sabbai data encrypt gareko hunxa and hash add hunxa, tesma attribute filter garera feri encrypt garnu parxa by alice then only re-encrypt garna milxa cz tyo vayena vane cerial exception auxa cz crypto keys match nai hudaina as encrypt vako binary file lai naya binary file banayo jasko kei link xaina with alice and tyo file lai re-encrypt garna pathauda cerial exception error ayo
+                        /* byte[] onlyData = null;
+                try {
+                    FileInputStream read = new FileInputStream(new File(dataFolder + count));
+                    onlyData = read.readAllBytes();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // Package data with flags for authorized attributes
+                Map<String, byte[]> data = DataHandler.readOnlyData(onlyData);
+                Map<String, byte[]> authorizedData = new HashMap<>();
+                authorizedData.put("header", data.get("header"));
+                authorizedData.put("timestamp", data.get("timestamp"));
+                authorizedData.put("quality", data.get("quality"));
+
+                // Prepare authorized data for re-encryption
+                byte[] encryptedData = proxyReEncryptionService.reEncrypt(authorizedData, principal);*/
 
                 } else {
                     System.out.println("Process Terminated as the hash do not match");
